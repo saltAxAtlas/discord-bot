@@ -1,12 +1,13 @@
 import discord
 from discord.utils import get
-import os
 import random
 import logging
 
 client = discord.Client()
 random.seed()
 logging.basicConfig(level=logging.INFO)
+
+timezones = {'AEST':15,'AST':1,'AWST':12,'CAT':6,'CET':5,'CST':-1,'EAT':6,'EET':6,'EST':0,'MSK':7,'MST':-2,'PST':-3,'WAT':5,'WET':4,'GMT':4}  # Add +- support / all timezones
 
 @client.event
 async def on_ready():
@@ -24,12 +25,19 @@ async def on_message(message):
   if message.content.startswith('$commands'):
     await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule\n10. $socials\n11.  $coc-invite\n12. $qotd')
   elif message.content.startswith('$help'):
-    await message.channel.send('Try \'$commands\' to see a simplified command list.\n\t1. $commands - a list of available commands.\n\t2. $help - an indepth explaination of the available commands.\n\t3. $hello - the bot will say hello to you.\n\t4. $say \"{Your Message Here}\" - lets you control what the bot says (keep it clean please).\n\t5. $notified - gives you the role \'Notified\' within the server. This role is pinged at the start\n\t     of every stream so you know when I go live. If you want to remove the role, simply use\n\t     the command again.\n\t6. $coin-flip - generate a random coin flip.\n\t7. $coc-gamemode - generate a random CoC gamemode to play!\n\t8. $going-live - pings \'Notified\' when I go live (only I can use this).\n\t9. $schedule - stream schedule for any given week.\n\t10. $socials - a list of my social media links.\n\t11. $coc-invite - give you the role \'Invite to Clash\' which anyone can ping when they are\n\t     looking for people to clash with. Use the command again to remove the role.\n\t12. $qotd - give you the role \'QOTD Notified\' which is pinged everyday when the QOTD is\n\t     posted. Use the command again to remove the role.')
+    await message.channel.send('Try \'$commands\' to see a simplified command list.\n\t1. $commands - a list of available commands.\n\t2. $help - an indepth explanation of the available commands.\n\t3. $hello - the bot will say hello to you.\n\t4. $say \"{Your Message Here}\" - lets you control what the bot says.\n\t     (keep it clean please).\n\t5. $notified - gives you the role \'Notified\' within the server. This role is pinged at the\n\t     start of every stream so you know when I go live. If you want to remove the role,\n\t     simply use the command again.\n\t6. $coin-flip - generate a random coin flip.\n\t7. $coc-gamemode - generate a random CoC gamemode to play!\n\t8. $going-live - pings \'Notified\' when I go live (only I can use this).\n\t9. $schedule - stream schedule for any given week.\n\t10. $socials - a list of my social media links.\n\t11. $coc-invite - give you the role \'Invite to Clash\' which anyone can ping when they are\n\t     looking for people to clash with. Use the command again to remove the role.\n\t12. $qotd - give you the role \'QOTD Notified\' which is pinged everyday when\n\t     the QOTD is posted. Use the command again to remove the role.')
   elif message.content.startswith('$hello'):
     member = message.author
     await message.channel.send(f'Hello, {member.name}!')
-  elif message.content.startswith('$say '):
-    await message.channel.send(' '.join(message.content.split()[1:]))
+  elif message.content.startswith('$say'):  # regex to remove anything that is whitespace
+    try:
+      response = message.content[4:].lstrip()
+      if len(response) > 0:
+        await message.channel.send(response)
+      else:
+        await message.channel.send('... what should I say?')
+    except IndexError:
+      await message.channel.send('... what should I say?')
   elif message.content.startswith('$notified'):
     member = message.author
     role = get(member.guild.roles, name='Notified')
@@ -54,7 +62,20 @@ async def on_message(message):
     else:
       await message.channel.send('You do not have permission to use this command :(')
   elif message.content.startswith('$schedule'):
-    await message.channel.send('All times are EST:\n\tMonday: 1:00PM - 4:00PM\n\tTuesday: 1:00PM - 5:00PM\n\tWednesday: 1:00PM - 4:00PM\n\tThursday: No Stream\n\tFriday: 1:00PM - 6:00PM\n\tSaturday: 2:00PM - 7:00PM\n\tSunday: No Stream')
+    member_timezone = ' '.join(message.content.upper().split()[1:])
+    if member_timezone == '':
+      member_timezone = 'EST'
+    if member_timezone in timezones.keys():
+        monday = (13 + timezones[member_timezone])%24
+        tuesday = (13 + timezones[member_timezone])%24
+        wednesday = (13 + timezones[member_timezone])%24
+        thursday = 'No Stream'
+        friday = (13 + timezones[member_timezone])%24
+        saturday = (14 + timezones[member_timezone])%24
+        sunday = 'No Stream'
+        await message.channel.send(f'All times are in {member_timezone}:\n\tMonday: {monday}:00 - {monday + 3}:00\n\tTuesday: {tuesday}:00 - {tuesday + 4}:00\n\tWednesday: {wednesday}:00 - {wednesday + 3}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday + 5}:00\n\tSaturday: {saturday}:00 - {saturday + 5}:00\n\tSunday: {sunday}')
+    else:
+        await message.channel.send(f'{member_timezone} is not currently supported!')
   elif message.content.startswith('$socials'):
     await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/ax_atlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
   elif message.content.startswith('$coc-invite'):
@@ -75,7 +96,7 @@ async def on_message(message):
     else:
       await member.add_roles(role)
       await message.channel.send('You will now be pinged when the QOTD is posted!')
-  elif message.content.startswith('$info'):  # Need to work on
+  elif message.content.startswith('$info'):  # Need to make this work
     await message.channel.send(f'Total Members: {len(message.channel.members)}')
   else:
     await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
