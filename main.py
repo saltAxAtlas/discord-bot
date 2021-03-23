@@ -65,7 +65,7 @@ async def on_message(message):
             await message.channel.send('You do not have permission to use this command :(')
     elif message.content.startswith('$schedule'):
         member_timezone = ' '.join(message.content.upper().split()[1:])
-        shift
+        shift = 0
         if member_timezone == '':
             member_timezone = 'EST'
         char = '+' if '+' in member_timezone else '-' if '-' in member_timezone else ''
