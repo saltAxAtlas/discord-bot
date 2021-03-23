@@ -7,7 +7,7 @@ client = discord.Client()
 random.seed()
 logging.basicConfig(level=logging.INFO)
 
-timezones = {'AEST':15,'AST':1,'AWST':12,'CAT':6,'CET':5,'CST':-1,'EAT':6,'EET':6,'EST':0,'MSK':7,'MST':-2,'PST':-3,'WAT':5,'WET':4,'GMT':4}  # Add +- support / all timezones
+timezones = {'AEST': 15, 'AST': 1, 'AWST': 12, 'CAT': 6, 'CET': 5, 'CST': -1, 'EAT': 6, 'EET': 6, 'EST': 0, 'MSK': 7, 'MST': -2, 'PST': -3, 'WAT': 5, 'WET': 4, 'GMT': 4}  # Add +- support / all timezones
 
 @client.event
 async def on_ready():
@@ -29,10 +29,12 @@ async def on_message(message):
   elif message.content.startswith('$hello'):
     member = message.author
     await message.channel.send(f'Hello, {member.name}!')
-  elif message.content.startswith('$say'):  # regex to remove anything that is whitespace
+  elif message.content.startswith('$say'):
     try:
       response = message.content[4:].lstrip()
       if len(response) > 0:
+        for i in '​‍‍‌️️︎︎‭　ㅤᅠ  ⠀	⁣         ':
+          response = response.replace(i, '')
         await message.channel.send(response)
       else:
         await message.channel.send('... what should I say?')
@@ -65,17 +67,17 @@ async def on_message(message):
     member_timezone = ' '.join(message.content.upper().split()[1:])
     if member_timezone == '':
       member_timezone = 'EST'
-    if member_timezone in timezones.keys():
-        monday = (13 + timezones[member_timezone])%24
-        tuesday = (13 + timezones[member_timezone])%24
-        wednesday = (13 + timezones[member_timezone])%24
-        thursday = 'No Stream'
-        friday = (13 + timezones[member_timezone])%24
-        saturday = (14 + timezones[member_timezone])%24
-        sunday = 'No Stream'
-        await message.channel.send(f'All times are in {member_timezone}:\n\tMonday: {monday}:00 - {monday + 3}:00\n\tTuesday: {tuesday}:00 - {tuesday + 4}:00\n\tWednesday: {wednesday}:00 - {wednesday + 3}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday + 5}:00\n\tSaturday: {saturday}:00 - {saturday + 5}:00\n\tSunday: {sunday}')
-    else:
-        await message.channel.send(f'{member_timezone} is not currently supported!')
+    if member_timezone not in timezones:
+      await message.channel.send(f'{member_timezone} is not currently supported! Defaulting to EST')
+      member_timezone = 'EST'
+    monday = (13 + timezones[member_timezone])%24
+    tuesday = (13 + timezones[member_timezone])%24
+    wednesday = (13 + timezones[member_timezone])%24
+    thursday = 'No Stream'
+    friday = (13 + timezones[member_timezone])%24
+    saturday = (14 + timezones[member_timezone])%24
+    sunday = 'No Stream'
+    await message.channel.send(f'All times are in {member_timezone}:\n\tMonday: {monday}:00 - {monday + 3}:00\n\tTuesday: {tuesday}:00 - {tuesday + 4}:00\n\tWednesday: {wednesday}:00 - {wednesday + 3}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday + 5}:00\n\tSaturday: {saturday}:00 - {saturday + 5}:00\n\tSunday: {sunday}')
   elif message.content.startswith('$socials'):
     await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/ax_atlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
   elif message.content.startswith('$coc-invite'):
@@ -101,4 +103,4 @@ async def on_message(message):
   else:
     await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('No Token For You :P')
+client.run('kill me')
