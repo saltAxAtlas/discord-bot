@@ -72,7 +72,7 @@ async def on_message(message):
         if char:
             member_timezone, shift = member_timezone.split(char)
             try: shift = int(shift)
-            except: return message.channel.send(f'{positive_shift} is not a valid value following timezone{char}number')
+            except: return message.channel.send(f'{shift} is not a valid number following timezone{char}number')
             if char == '-': shift = -shift
         if member_timezone not in timezones:
             await message.channel.send(f'{member_timezone} is not currently supported! Defaulting to EST')
