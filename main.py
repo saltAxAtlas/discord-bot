@@ -117,4 +117,4 @@ async def on_message(message):
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('(╯°□°）╯︵ ┻━┻')
+client.run('¯(ツ)/¯')
