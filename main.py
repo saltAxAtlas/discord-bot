@@ -85,7 +85,7 @@ async def on_message(message):
             member_timezone = 'EST'
         tz = timezones[member_timezone] + shift
         if tz in flip(timezones):
-            member_timezone = timezones[flip(timezones)[member_timezone]] # Name simplifying
+            member_timezone = flip(timezones)[tz] # Name simplifying
             flipped &= 0
         monday = (17 + tz)%24
         monday_end = (monday + 3)%24
