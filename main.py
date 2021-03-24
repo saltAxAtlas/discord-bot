@@ -50,10 +50,10 @@ async def on_message(message):
         role = get(member.guild.roles, name='Notified')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('You will no longer be notified when saltAxAtlas goes live :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be notified when saltAxAtlas goes live')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be notified when saltAxAtlas goes live!')
+            await message.channel.send('You will now be notified when saltAxAtlas goes live! ┬─┬ ノ( ゜-゜ノ)')
     elif message.content.startswith('$coin-flip'):
         rng = random.randint(0, 1)
         await message.channel.send('Heads!' if rng == 1 else 'Tails!')
@@ -67,7 +67,7 @@ async def on_message(message):
             notified = get(member.guild.roles, name='Notified')
             await message.channel.send(f'{notified.mention} saltAxAtlas is streaming now at https://twitch.tv/saltaxatlas !')
         else:
-            await message.channel.send('You do not have permission to use this command :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You do not have permission to use this command')
     elif message.content.startswith('$schedule'):
         member_timezone = ' '.join(message.content.upper().split()[1:])
         shift = 0
@@ -109,19 +109,19 @@ async def on_message(message):
         role = get(member.guild.roles, name='Invite to Clash')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('You will no longer be pinged when people are starting private clashes :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be pinged when people are starting private clashes')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be pinged when people are looking for others to clash with!')
+            await message.channel.send('You will now be pinged when people are looking for others to clash with! ┬─┬ ノ( ゜-゜ノ)')
     elif message.content.startswith('$qotd'):
         member = message.author
         role = get(member.guild.roles, name='Notified QOTD')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('You will no longer be pinged when the QOTD is posted :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be pinged when the QOTD is posted')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be pinged when the QOTD is posted!')
+            await message.channel.send('You will now be pinged when the QOTD is posted! ┬─┬ ノ( ゜-゜ノ)')
     elif message.content.startswith('$info'):  # Need to make this work
         await message.channel.send(f'Total Members: {len(message.channel.members)}')
     else:
