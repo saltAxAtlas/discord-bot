@@ -7,7 +7,6 @@ client = discord.Client()
 random.seed()
 logging.basicConfig(level=logging.INFO)
 
-troll_mode = False
 timezones = {'NUT': -11, 'TAHT': -10, 'HDT': -9, 'AKDT': -8, 'PDT': -7, 'MST': -7, 'MDT': -6, 'CST': -6, 'GALT': -6, 'CDT': -5, 'ECT': -5, 'COT': -5, 'EDT': -4, 'EST': -4, 'AMT': -4, 'WGT': -3, 'GST': -2, 'CVT': -1, 'AZOT': -1, 'GMT': 0, 'UTC': 0, 'WAT': 1, 'CET': 1, 'CAT': 2, 'EET': 2, 'EAT': 3, 'MSK': 3, 'AST': 3, 'SAMT': 4, 'RET': 4, 'MUT': 4, 'YEKT': 5, 'ORAT': 5, 'MVT': 5, 'TFT': 5, 'OMST': 6, 'ALMT': 6, 'KGT': 6, 'BST': 6, 'KRAT': 7, 'WIB': 7, 'ICT': 7, 'AWST': 8, 'PHST': 8, 'ULAT': 8, 'IRKT': 8, 'WITA': 8, 'BNT': 8, 'WIT': 9, 'YAKT': 9, 'JST': 9, 'PGT': 10, 'AEST': 10, 'VLAT': 10, 'VUT': 11, 'SRET': 11, 'MAGT': 11, 'SBT': 11, 'CHADT': 12, 'FJT': 12, 'ANAT': 12, 'NZDT': 13, 'HST': 14}
 
 @client.event
@@ -21,9 +20,6 @@ async def on_member_join(member):  # Need to test / add send message in #welcome
 
 @client.event
 async def on_message(message):
-    if troll_mode and message.author != client.user:
-        response = ''.join([x+y for x,y in zip(message.content[0:2].upper(),message.content[1:2].lower())])
-        await message.channel.send(response)
     if message.author == client.user or not message.content.startswith('$'):
         return
     if message.content.startswith('$commands'):
@@ -37,8 +33,7 @@ async def on_message(message):
         try:
             response = message.content[4:].lstrip()
             if len(response) > 0:
-                for i in '​‍‍‌️️︎︎‭　ㅤᅠ  ⠀	⁣         ':
-                    response = response.replace(i, '')
+                
                 await message.channel.send(response)
             else:
                 await message.channel.send('... what should I say?')
@@ -49,10 +44,10 @@ async def on_message(message):
         role = get(member.guild.roles, name='Notified')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be notified when saltAxAtlas goes live')
+            await message.channel.send('You will no longer be notified when saltAxAtlas goes live :(')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be notified when saltAxAtlas goes live! ┬─┬ ノ( ゜-゜ノ)')
+            await message.channel.send('You will now be notified when saltAxAtlas goes live!')
     elif message.content.startswith('$coin-flip'):
         rng = random.randint(0, 1)
         await message.channel.send('Heads!' if rng == 1 else 'Tails!')
@@ -66,7 +61,7 @@ async def on_message(message):
             notified = get(member.guild.roles, name='Notified')
             await message.channel.send(f'{notified.mention} saltAxAtlas is streaming now at https://twitch.tv/saltaxatlas !')
         else:
-            await message.channel.send('(╯°□°）╯︵ ┻━┻ You do not have permission to use this command')
+            await message.channel.send('You do not have permission to use this command!')
     elif message.content.startswith('$schedule'):
         member_timezone = ' '.join(message.content.upper().split()[1:])
         shift = 0
@@ -104,33 +99,22 @@ async def on_message(message):
         role = get(member.guild.roles, name='Invite to Clash')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be pinged when people are starting private clashes')
+            await message.channel.send('You will no longer be pinged when people are starting private clashes :(')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be pinged when people are looking for others to clash with! ┬─┬ ノ( ゜-゜ノ)')
+            await message.channel.send('You will now be pinged when people are looking for others to clash with!')
     elif message.content.startswith('$qotd'):
         member = message.author
         role = get(member.guild.roles, name='Notified QOTD')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be pinged when the QOTD is posted')
+            await message.channel.send('You will no longer be pinged when the QOTD is posted :(')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be pinged when the QOTD is posted! ┬─┬ ノ( ゜-゜ノ)')
+            await message.channel.send('You will now be pinged when the QOTD is posted!')
     elif message.content.startswith('$info'):
         await message.channel.send(f'Total Members: {message.guild.member_count}')
-    elif message.content.startswith('$TrOlL'):  # Does not work
-        member = message.author
-        role = get(member.guild.roles, name='Streamer')
-        if role in member.roles:
-            troll_mode != troll_mode
-            if troll_mode:
-                await message.channel.send('I wIlL nOw TrOlL eVeRyOnE!')
-            else:
-                await message.channel.send('(╯°□°）╯︵ ┻━┻ I will no longer troll everyone!')
-        else:
-            await message.channel.send('(╯°□°）╯︵ ┻━┻ You do not have permission to use this command')
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('¯(ツ)/¯')
+client.run('MANY TOKENS')
