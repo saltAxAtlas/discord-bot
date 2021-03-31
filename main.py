@@ -9,6 +9,11 @@ logging.basicConfig(level=logging.INFO)
 
 timezones = {'NUT': -11, 'TAHT': -10, 'HDT': -9, 'AKDT': -8, 'PDT': -7, 'MST': -7, 'MDT': -6, 'CST': -6, 'GALT': -6, 'CDT': -5, 'ECT': -5, 'COT': -5, 'EDT': -4, 'EST': -4, 'AMT': -4, 'WGT': -3, 'GST': -2, 'CVT': -1, 'AZOT': -1, 'GMT': 0, 'UTC': 0, 'WAT': 1, 'CET': 1, 'CAT': 2, 'EET': 2, 'EAT': 3, 'MSK': 3, 'AST': 3, 'SAMT': 4, 'RET': 4, 'MUT': 4, 'YEKT': 5, 'ORAT': 5, 'MVT': 5, 'TFT': 5, 'OMST': 6, 'ALMT': 6, 'KGT': 6, 'BST': 6, 'KRAT': 7, 'WIB': 7, 'ICT': 7, 'AWST': 8, 'PHST': 8, 'ULAT': 8, 'IRKT': 8, 'WITA': 8, 'BNT': 8, 'WIT': 9, 'YAKT': 9, 'JST': 9, 'PGT': 10, 'AEST': 10, 'VLAT': 10, 'VUT': 11, 'SRET': 11, 'MAGT': 11, 'SBT': 11, 'CHADT': 12, 'FJT': 12, 'ANAT': 12, 'NZDT': 13, 'HST': 14}
 
+def flip(dict):
+    ret = {}
+    for i in dict: ret[dict[i]] = i
+    return ret
+
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
@@ -45,10 +50,10 @@ async def on_message(message):
         role = get(member.guild.roles, name='Notified')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('You will no longer be notified when saltAxAtlas goes live :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be notified when saltAxAtlas goes live')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be notified when saltAxAtlas goes live!')
+            await message.channel.send('You will now be notified when saltAxAtlas goes live! ┬─┬ ノ( ゜-゜ノ)')
     elif message.content.startswith('$coin-flip'):
         rng = random.randint(0, 1)
         await message.channel.send('Heads!' if rng == 1 else 'Tails!')
@@ -62,50 +67,41 @@ async def on_message(message):
             notified = get(member.guild.roles, name='Notified')
             await message.channel.send(f'{notified.mention} saltAxAtlas is streaming now at https://twitch.tv/saltaxatlas !')
         else:
-            await message.channel.send('You do not have permission to use this command :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You do not have permission to use this command')
     elif message.content.startswith('$schedule'):
         member_timezone = ' '.join(message.content.upper().split()[1:])
-        positive_shift = 0
-        negative_shift = 0
+        shift = 0
+        flipped = 1 # more like NOT flipped
         if member_timezone == '':
             member_timezone = 'EST'
-        if '+' in member_timezone:
-            member_timezone,positive_shift = member_timezone.split('+')
-            try:
-                positive_shift = int(positive_shift)
-            except:
-                await message.channel.send(f'{positive_shift} is not a valid value following \'+\'')
-                return
-        if '-' in member_timezone:
-            member_timezone,negative_shift = member_timezone.split('-')
-            try:
-                negative_shift = int(negative_shift)
-            except:
-                await message.channel.send(f'{negative_shift} is not a valid value following \'+\'')
-                return
+        char = '+' if '+' in member_timezone else '-' if '-' in member_timezone else ''
+        if char:
+            member_timezone, shift = member_timezone.split(char)
+            try: shift = int(shift)
+            except: return message.channel.send(f'{shift} is not a valid number following timezone{char}number')
+            if char == '-': shift = -shift
         if member_timezone not in timezones:
             await message.channel.send(f'{member_timezone} is not currently supported! Defaulting to EST')
             member_timezone = 'EST'
-        monday = (17 + timezones[member_timezone] + positive_shift - negative_shift)%24
+        tz = timezones[member_timezone] + shift
+        if tz in flip(timezones):
+            member_timezone = flip(timezones)[tz] # Name simplifying
+            flipped &= 0
+        monday = (17 + tz)%24
         monday_end = (monday + 3)%24
-        tuesday = (17 + timezones[member_timezone] + positive_shift - negative_shift)%24
+        tuesday = (17 + tz)%24
         tuesday_end = (tuesday + 4)%24
-        wednesday = (17 + timezones[member_timezone] + positive_shift - negative_shift)%24
+        wednesday = (17 + tz)%24
         wednesday_end = (wednesday + 3)%24
         thursday = 'No Stream'
         thursday_end = 'No Stream'
-        friday = (17 + timezones[member_timezone] + positive_shift - negative_shift)%24
+        friday = (17 + tz)%24
         friday_end = (friday + 5)%24
-        saturday = (18 + timezones[member_timezone] + positive_shift - negative_shift)%24
+        saturday = (18 + tz)%24
         saturday_end = (saturday + 5)%24
         sunday = 'No Stream'
         sunday_end = 'No Stream'
-        if positive_shift > 0:
-            await message.channel.send(f'All times are in {member_timezone}+{positive_shift}:\n\tMonday: {monday}:00 - {monday_end}:00\n\tTuesday: {tuesday}:00 - {tuesday_end}:00\n\tWednesday: {wednesday}:00 - {wednesday_end}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday_end}:00\n\tSaturday: {saturday}:00 - {saturday_end}:00\n\tSunday: {sunday}')
-        elif negative_shift > 0:
-            await message.channel.send(f'All times are in {member_timezone}-{negative_shift}:\n\tMonday: {monday}:00 - {monday_end}:00\n\tTuesday: {tuesday}:00 - {tuesday_end}:00\n\tWednesday: {wednesday}:00 - {wednesday_end}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday_end}:00\n\tSaturday: {saturday}:00 - {saturday_end}:00\n\tSunday: {sunday}')
-        else:
-            await message.channel.send(f'All times are in {member_timezone}:\n\tMonday: {monday}:00 - {monday_end}:00\n\tTuesday: {tuesday}:00 - {tuesday_end}:00\n\tWednesday: {wednesday}:00 - {wednesday_end}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday_end}:00\n\tSaturday: {saturday}:00 - {saturday_end}:00\n\tSunday: {sunday}')
+        await message.channel.send(f'All times are in {member_timezone}{char+shift if char and flipped else ""}:\n\tMonday: {monday}:00 - {monday_end}:00\n\tTuesday: {tuesday}:00 - {tuesday_end}:00\n\tWednesday: {wednesday}:00 - {wednesday_end}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday_end}:00\n\tSaturday: {saturday}:00 - {saturday_end}:00\n\tSunday: {sunday}')
     elif message.content.startswith('$socials'):
         await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/ax_atlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
     elif message.content.startswith('$coc-invite'):
@@ -113,22 +109,22 @@ async def on_message(message):
         role = get(member.guild.roles, name='Invite to Clash')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('You will no longer be pinged when people are starting private clashes :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be pinged when people are starting private clashes')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be pinged when people are looking for others to clash with!')
+            await message.channel.send('You will now be pinged when people are looking for others to clash with! ┬─┬ ノ( ゜-゜ノ)')
     elif message.content.startswith('$qotd'):
         member = message.author
         role = get(member.guild.roles, name='Notified QOTD')
         if role in member.roles:
             await member.remove_roles(role)
-            await message.channel.send('You will no longer be pinged when the QOTD is posted :(')
+            await message.channel.send('(╯°□°）╯︵ ┻━┻ You will no longer be pinged when the QOTD is posted')
         else:
             await member.add_roles(role)
-            await message.channel.send('You will now be pinged when the QOTD is posted!')
+            await message.channel.send('You will now be pinged when the QOTD is posted! ┬─┬ ノ( ゜-゜ノ)')
     elif message.content.startswith('$info'):  # Need to make this work
         await message.channel.send(f'Total Members: {len(message.channel.members)}')
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('Please take this TOKEN')
+client.run('¯(ツ)/¯')
