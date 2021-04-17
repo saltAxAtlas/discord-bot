@@ -8,13 +8,29 @@ random.seed()
 logging.basicConfig(level=logging.INFO)
 
 timezones = {'NUT': -11, 'TAHT': -10, 'HDT': -9, 'AKDT': -8, 'PDT': -7, 'MST': -7, 'MDT': -6, 'CST': -6, 'GALT': -6, 'CDT': -5, 'ECT': -5, 'COT': -5, 'EDT': -4, 'EST': -4, 'AMT': -4, 'WGT': -3, 'GST': -2, 'CVT': -1, 'AZOT': -1, 'GMT': 0, 'UTC': 0, 'WAT': 1, 'CET': 1, 'CAT': 2, 'EET': 2, 'EAT': 3, 'MSK': 3, 'AST': 3, 'SAMT': 4, 'RET': 4, 'MUT': 4, 'YEKT': 5, 'ORAT': 5, 'MVT': 5, 'TFT': 5, 'OMST': 6, 'ALMT': 6, 'KGT': 6, 'BST': 6, 'KRAT': 7, 'WIB': 7, 'ICT': 7, 'AWST': 8, 'PHST': 8, 'ULAT': 8, 'IRKT': 8, 'WITA': 8, 'BNT': 8, 'WIT': 9, 'YAKT': 9, 'JST': 9, 'PGT': 10, 'AEST': 10, 'VLAT': 10, 'VUT': 11, 'SRET': 11, 'MAGT': 11, 'SBT': 11, 'CHADT': 12, 'FJT': 12, 'ANAT': 12, 'NZDT': 13, 'HST': 14}
+languages = {'ENGLISH': ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], 'GERMAN': ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'], 'SPANISH': ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'], 'FRENCH': ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']}
+MONDAY_START = 17
+MONDAY_LENGTH = 3
+TUESDAY_START = 17
+TUESDAY_LENGTH = 4
+WEDNESDAY_START = 17
+WEDNESDAY_LENGTH = 3
+THURSDAY_START = 0
+THURSDAY_LENGTH = 0
+FRIDAY_START = 17
+FRIDAY_LENGTH = 5
+SATURDAY_START = 18
+SATURDAY_LENGTH = 5
+SUNDAY_START = 0
+SUNDAY_LENGTH = 0
+
 
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user}')
 
 @client.event
-async def on_member_join(member):  # Need to test / add send message in #welcome
+async def on_member_join(member):  # Does not send message?
     await member.create_dm()
     await member.dm_channel.send(f'Hi {member.name}, Welcome to my Discord server! Please be sure to check out the rules-and-guidelines channel before you begin chatting. I hope you have a great time in the server! Thank you for joining!')
 
@@ -22,10 +38,21 @@ async def on_member_join(member):  # Need to test / add send message in #welcome
 async def on_message(message):
     if message.author == client.user or not message.content.startswith('$'):
         return
+    
+    message_rng = random.randint(0,9999)
+    if message_rng == 69:
+        member = message.author
+        role = get(member.guild.roles, name='Chosen')
+        if role in member.roles:
+            await message.channel.send(f'{member.name}, you lucky duck!')
+        else:
+            await member.add_roles(role)
+            await message.channel.send(f'I chose you, {member.name}.\n')
+    
     if message.content.startswith('$commands'):
-        await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule\n10. $socials\n11.  $coc-invite\n12. $qotd\n13. $info')
+        await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule \"{Timezone}\" \"{Language}\"\n10. $socials\n11.  $coc-invite\n12. $qotd\n13. $info')
     elif message.content.startswith('$help'):
-        await message.channel.send('Try \'$commands\' to see a simplified command list.\n\t1. $commands - a list of available commands.\n\t2. $help - an indepth explanation of the available commands.\n\t3. $hello - the bot will say hello to you.\n\t4. $say \"{Your Message Here}\" - lets you control what the bot says.\n\t     (keep it clean please).\n\t5. $notified - gives you the role \'Notified\' within the server. This role is pinged at the\n\t     start of every stream so you know when I go live. If you want to remove the role,\n\t     simply use the command again.\n\t6. $coin-flip - generate a random coin flip.\n\t7. $coc-gamemode - generate a random CoC gamemode to play!\n\t8. $going-live - pings \'Notified\' when I go live (only I can use this).\n\t9. $schedule - stream schedule for any given week.\n\t10. $socials - a list of my social media links.\n\t11. $coc-invite - give you the role \'Invite to Clash\' which anyone can ping when they are\n\t     looking for people to clash with. Use the command again to remove the role.\n\t12. $qotd - give you the role \'QOTD Notified\' which is pinged everyday when\n\t     the QOTD is posted. Use the command again to remove the role.\n\t13. $info - outputs the number of members in the server.')
+        await message.channel.send('Try \'$commands\' to see a simplified command list.\n\t1. $commands - a list of available commands.\n\t2. $help - an indepth explanation of the available commands.\n\t3. $hello - the bot will say hello to you.\n\t4. $say \"{Your Message Here}\" - lets you control what the bot says.\n\t     (keep it clean please).\n\t5. $notified - gives you the role \'Notified\' within the server. This role is pinged at the\n\t     start of every stream so you know when I go live. If you want to remove the role,\n\t     simply use the command again.\n\t6. $coin-flip - generate a random coin flip.\n\t7. $coc-gamemode - generate a random CoC gamemode to play!\n\t8. $going-live - pings \'Notified\' when I go live (only I can use this).\n\t9. $schedule \"{Timezone}\" \"{Language}\" - stream schedule for any given week.\n\t10. $socials - a list of my social media links.\n\t11. $coc-invite - give you the role \'Invite to Clash\' which anyone can ping when they are\n\t     looking for people to clash with. Use the command again to remove the role.\n\t12. $qotd - give you the role \'QOTD Notified\' which is pinged everyday when\n\t     the QOTD is posted. Use the command again to remove the role.\n\t13. $info - outputs the number of members in the server.')
     elif message.content.startswith('$hello'):
         member = message.author
         await message.channel.send(f'Hello, {member.name}!')
@@ -33,7 +60,6 @@ async def on_message(message):
         try:
             response = message.content[4:].lstrip()
             if len(response) > 0:
-                
                 await message.channel.send(response)
             else:
                 await message.channel.send('... what should I say?')
@@ -63,35 +89,55 @@ async def on_message(message):
         else:
             await message.channel.send('You do not have permission to use this command!')
     elif message.content.startswith('$schedule'):
-        member_timezone = ' '.join(message.content.upper().split()[1:])
-        shift = 0
-        if member_timezone == '':
+        try:
+            commands = message.content.upper().split()[1:]
+            if len(commands) >= 2:
+                member_timezone, member_language = commands[0], commands[1]
+            elif len(commands) == 1:
+                member_timezone = commands[0]
+                member_language = 'ENGLISH'
+            else:
+                member_timezone = 'EST'
+                member_language = 'ENGLISH'
+        except IndexError:
             member_timezone = 'EST'
-        char = '+' if '+' in member_timezone else '-' if '-' in member_timezone else ''
-        if char:
-            member_timezone, shift = member_timezone.split(char)
-            try: shift = int(shift)
-            except: await message.channel.send(f'{shift} is not a valid number following the format \'timezone{char}number\'.');return
-            if char == '-': shift = -shift
+            member_language = 'ENGLISH'
+        shift = 0
+        sign = '+' if '+' in member_timezone else '-' if '-' in member_timezone else ''
+        if sign:
+            member_timezone, shift = member_timezone.split(sign)
+            try: 
+                shift = int(shift)
+            except: 
+                await message.channel.send(f'{shift} is not a valid number following the format \'timezone{sign}number\'.');
+                return
+            if sign == '-': 
+                shift = -shift
         if member_timezone not in timezones:
             await message.channel.send(f'{member_timezone} is not currently supported! Defaulting to EST')
             member_timezone = 'EST'
+        if member_language not in languages:
+            await message.channel.send(f'{member_language} is not currently supported! Defaulting to ENGLISH')
+            member_language = 'ENGLISH'
         tz = timezones[member_timezone] + shift
-        monday = (17 + tz)%24
-        monday_end = (monday + 3)%24
-        tuesday = (17 + tz)%24
-        tuesday_end = (tuesday + 4)%24
-        wednesday = (17 + tz)%24
-        wednesday_end = (wednesday + 3)%24
+        dotw = languages[member_language]
+        monday = (MONDAY_START + tz)%24
+        monday_end = (monday + MONDAY_LENGTH)%24
+        tuesday = (TUESDAY_START + tz)%24
+        tuesday_end = (tuesday + TUESDAY_LENGTH)%24
+        wednesday = (WEDNESDAY_START + tz)%24
+        wednesday_end = (wednesday + WEDNESDAY_LENGTH)%24
         thursday = 'No Stream'
         thursday_end = 'No Stream'
-        friday = (17 + tz)%24
-        friday_end = (friday + 5)%24
-        saturday = (18 + tz)%24
-        saturday_end = (saturday + 5)%24
+        friday = (FRIDAY_START + tz)%24
+        friday_end = (friday + FRIDAY_LENGTH)%24
+        saturday = (SATURDAY_START + tz)%24
+        saturday_end = (saturday + SATURDAY_LENGTH)%24
         sunday = 'No Stream'
         sunday_end = 'No Stream'
-        await message.channel.send(f'All times are in {member_timezone}{char+str(shift) if char else ""}:\n\tMonday: {monday}:00 - {monday_end}:00\n\tTuesday: {tuesday}:00 - {tuesday_end}:00\n\tWednesday: {wednesday}:00 - {wednesday_end}:00\n\tThursday: {thursday}\n\tFriday: {friday}:00 - {friday_end}:00\n\tSaturday: {saturday}:00 - {saturday_end}:00\n\tSunday: {sunday}')
+        if sign:
+            member_timezone += sign + str(abs(shift)) 
+        await message.channel.send(f'All times are in {member_timezone}:\n\t{dotw[0]}: {monday}:00 - {monday_end}:00\n\t{dotw[1]}: {tuesday}:00 - {tuesday_end}:00\n\t{dotw[2]}: {wednesday}:00 - {wednesday_end}:00\n\t{dotw[3]}: {thursday}\n\t{dotw[4]}: {friday}:00 - {friday_end}:00\n\t{dotw[5]}: {saturday}:00 - {saturday_end}:00\n\t{dotw[6]}: {sunday}')
     elif message.content.startswith('$socials'):
         await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/ax_atlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
     elif message.content.startswith('$coc-invite'):
@@ -112,9 +158,10 @@ async def on_message(message):
         else:
             await member.add_roles(role)
             await message.channel.send('You will now be pinged when the QOTD is posted!')
-    elif message.content.startswith('$info'):
-        await message.channel.send(f'Total Members: {message.guild.member_count}')
+    elif message.content.startswith('$info'):  # BROKEN, value does not update
+        total_members = message.author.guild.member_count
+        await message.channel.send(f'Total Members: {total_members}')
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('MANY TOKENS')
+client.run('MUCH TOKEN')
