@@ -8,7 +8,13 @@ random.seed()
 logging.basicConfig(level=logging.INFO)
 
 timezones = {'NUT': -11, 'TAHT': -10, 'HDT': -9, 'AKDT': -8, 'PDT': -7, 'MST': -7, 'MDT': -6, 'CST': -6, 'GALT': -6, 'CDT': -5, 'ECT': -5, 'COT': -5, 'EDT': -4, 'EST': -4, 'AMT': -4, 'WGT': -3, 'GST': -2, 'CVT': -1, 'AZOT': -1, 'GMT': 0, 'UTC': 0, 'WAT': 1, 'CET': 1, 'CAT': 2, 'EET': 2, 'EAT': 3, 'MSK': 3, 'AST': 3, 'SAMT': 4, 'RET': 4, 'MUT': 4, 'YEKT': 5, 'ORAT': 5, 'MVT': 5, 'TFT': 5, 'OMST': 6, 'ALMT': 6, 'KGT': 6, 'BST': 6, 'KRAT': 7, 'WIB': 7, 'ICT': 7, 'AWST': 8, 'PHST': 8, 'ULAT': 8, 'IRKT': 8, 'WITA': 8, 'BNT': 8, 'WIT': 9, 'YAKT': 9, 'JST': 9, 'PGT': 10, 'AEST': 10, 'VLAT': 10, 'VUT': 11, 'SRET': 11, 'MAGT': 11, 'SBT': 11, 'CHADT': 12, 'FJT': 12, 'ANAT': 12, 'NZDT': 13, 'HST': 14}
-languages = {'ENGLISH': ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], 'GERMAN': ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'], 'SPANISH': ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'], 'FRENCH': ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']}
+languages = {
+    'ENGLISH': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    'GERMAN' : ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
+    'SPANISH': ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+    'FRENCH' : ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+    'POLISH' : ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'],
+}
 MONDAY_START = 17
 MONDAY_LENGTH = 3
 TUESDAY_START = 17
@@ -40,7 +46,7 @@ async def on_message(message):
         return
     
     message_rng = random.randint(0,9999)
-    if message_rng == 69:
+    if message_rng == 69: # Kinda impossible to get
         member = message.author
         role = get(member.guild.roles, name='Chosen')
         if role in member.roles:
@@ -92,7 +98,7 @@ async def on_message(message):
         try:
             commands = message.content.upper().split()[1:]
             if len(commands) >= 2:
-                member_timezone, member_language = commands[0], commands[1]
+                member_timezone, member_language = commands[:2]
             elif len(commands) == 1:
                 member_timezone = commands[0]
                 member_language = 'ENGLISH'
@@ -164,4 +170,4 @@ async def on_message(message):
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('MUCH TOKEN')
+client.run('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar pellentesque habitant morbi tristique senectus et netus. Nec dui nunc mattis enim ut. Faucibus nisl tincidunt eget nullam. Libero nunc consequat interdum varius sit amet mattis vulputate. Quis hendrerit dolor magna eget est. Ipsum a arcu cursus vitae. https://loremipsum.io/generator/?n=7&t=s')
