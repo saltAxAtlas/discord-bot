@@ -13,7 +13,7 @@ languages = {
     'GERMAN' : ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
     'SPANISH': ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
     'FRENCH' : ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
-    'POLISH' : ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'],
+    'POLISH' : ['Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota', 'Niedziela'],
 }
 MONDAY_START = 17
 MONDAY_LENGTH = 3
@@ -42,11 +42,12 @@ async def on_member_join(member):  # Does not send message?
 
 @client.event
 async def on_message(message):
-    if message.author == client.user or not message.content.startswith('$'):
+
+    if message.author == client.user:
         return
-    
-    message_rng = random.randint(0,9999)
-    if message_rng == 69: # Kinda impossible to get
+
+    message_rng = random.randint(0,4999)
+    if message_rng == 69:
         member = message.author
         role = get(member.guild.roles, name='Chosen')
         if role in member.roles:
@@ -54,6 +55,9 @@ async def on_message(message):
         else:
             await member.add_roles(role)
             await message.channel.send(f'I chose you, {member.name}.\n')
+
+    if not message.content.startswith('$'):
+        return
     
     if message.content.startswith('$commands'):
         await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule \"{Timezone}\" \"{Language}\"\n10. $socials\n11.  $coc-invite\n12. $qotd\n13. $info')
@@ -164,10 +168,10 @@ async def on_message(message):
         else:
             await member.add_roles(role)
             await message.channel.send('You will now be pinged when the QOTD is posted!')
-    elif message.content.startswith('$info'):  # BROKEN, value does not update
+    elif message.content.startswith('$info'):  # BROKEN, value does not update, but it might now?
         total_members = message.author.guild.member_count
         await message.channel.send(f'Total Members: {total_members}')
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pulvinar pellentesque habitant morbi tristique senectus et netus. Nec dui nunc mattis enim ut. Faucibus nisl tincidunt eget nullam. Libero nunc consequat interdum varius sit amet mattis vulputate. Quis hendrerit dolor magna eget est. Ipsum a arcu cursus vitae. https://loremipsum.io/generator/?n=7&t=s')
+client.run('TOKEN = BIGBIGINT')
