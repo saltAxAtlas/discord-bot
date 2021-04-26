@@ -19,11 +19,11 @@ MONDAY_START = 17
 MONDAY_LENGTH = 3
 TUESDAY_START = 17
 TUESDAY_LENGTH = 4
-WEDNESDAY_START = 17
-WEDNESDAY_LENGTH = 3
+WEDNESDAY_START = 0
+WEDNESDAY_LENGTH = 0
 THURSDAY_START = 0
 THURSDAY_LENGTH = 0
-FRIDAY_START = 17
+FRIDAY_START = 19
 FRIDAY_LENGTH = 5
 SATURDAY_START = 18
 SATURDAY_LENGTH = 5
@@ -60,9 +60,9 @@ async def on_message(message):
         return
     
     if message.content.startswith('$commands'):
-        await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule \"{Timezone}\" \"{Language}\"\n10. $socials\n11.  $coc-invite\n12. $qotd\n13. $info')
+        await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule \"{Timezone}\" \"{Language}\"\n10. $socials\n11.  $coc-invite\n12. $qotd\n13. $server-info')
     elif message.content.startswith('$help'):
-        await message.channel.send('Try \'$commands\' to see a simplified command list.\n\t1. $commands - a list of available commands.\n\t2. $help - an indepth explanation of the available commands.\n\t3. $hello - the bot will say hello to you.\n\t4. $say \"{Your Message Here}\" - lets you control what the bot says.\n\t     (keep it clean please).\n\t5. $notified - gives you the role \'Notified\' within the server. This role is pinged at the\n\t     start of every stream so you know when I go live. If you want to remove the role,\n\t     simply use the command again.\n\t6. $coin-flip - generate a random coin flip.\n\t7. $coc-gamemode - generate a random CoC gamemode to play!\n\t8. $going-live - pings \'Notified\' when I go live (only I can use this).\n\t9. $schedule \"{Timezone}\" \"{Language}\" - stream schedule for any given week.\n\t10. $socials - a list of my social media links.\n\t11. $coc-invite - give you the role \'Invite to Clash\' which anyone can ping when they are\n\t     looking for people to clash with. Use the command again to remove the role.\n\t12. $qotd - give you the role \'QOTD Notified\' which is pinged everyday when\n\t     the QOTD is posted. Use the command again to remove the role.\n\t13. $info - outputs the number of members in the server.')
+        await message.channel.send('Try \'$commands\' to see a simplified command list.\n\t1. $commands - a list of available commands.\n\t2. $help - an indepth explanation of the available commands.\n\t3. $hello - the bot will say hello to you.\n\t4. $say \"{Your Message Here}\" - lets you control what the bot says.\n\t     (keep it clean please).\n\t5. $notified - gives you the role \'Notified\' within the server. This role is pinged at the\n\t     start of every stream so you know when I go live. If you want to remove the role,\n\t     simply use the command again.\n\t6. $coin-flip - generate a random coin flip.\n\t7. $coc-gamemode - generate a random CoC gamemode to play!\n\t8. $going-live - pings \'Notified\' when I go live (only I can use this).\n\t9. $schedule \"{Timezone}\" \"{Language}\" - stream schedule for any given week.\n\t10. $socials - a list of my social media links.\n\t11. $coc-invite - give you the role \'Invite to Clash\' which anyone can ping when they are\n\t     looking for people to clash with. Use the command again to remove the role.\n\t12. $qotd - give you the role \'QOTD Notified\' which is pinged everyday when\n\t     the QOTD is posted. Use the command again to remove the role.\n\t13. $server-info - outputs the number of members in the server.')
     elif message.content.startswith('$hello'):
         member = message.author
         await message.channel.send(f'Hello, {member.name}!')
@@ -135,8 +135,8 @@ async def on_message(message):
         monday_end = (monday + MONDAY_LENGTH)%24
         tuesday = (TUESDAY_START + tz)%24
         tuesday_end = (tuesday + TUESDAY_LENGTH)%24
-        wednesday = (WEDNESDAY_START + tz)%24
-        wednesday_end = (wednesday + WEDNESDAY_LENGTH)%24
+        wednesday = 'No Stream'
+        wednesday_end = 'No Stream'
         thursday = 'No Stream'
         thursday_end = 'No Stream'
         friday = (FRIDAY_START + tz)%24
@@ -147,7 +147,7 @@ async def on_message(message):
         sunday_end = 'No Stream'
         if sign:
             member_timezone += sign + str(abs(shift)) 
-        await message.channel.send(f'All times are in {member_timezone}:\n\t{dotw[0]}: {monday}:00 - {monday_end}:00\n\t{dotw[1]}: {tuesday}:00 - {tuesday_end}:00\n\t{dotw[2]}: {wednesday}:00 - {wednesday_end}:00\n\t{dotw[3]}: {thursday}\n\t{dotw[4]}: {friday}:00 - {friday_end}:00\n\t{dotw[5]}: {saturday}:00 - {saturday_end}:00\n\t{dotw[6]}: {sunday}')
+        await message.channel.send(f'All times are in {member_timezone}:\n\t{dotw[0]}: {monday}:00 - {monday_end}:00\n\t{dotw[1]}: {tuesday}:00 - {tuesday_end}:00\n\t{dotw[2]}: {wednesday}\n\t{dotw[3]}: {thursday}\n\t{dotw[4]}: {friday}:00 - {friday_end}:00\n\t{dotw[5]}: {saturday}:00 - {saturday_end}:00\n\t{dotw[6]}: {sunday}')
     elif message.content.startswith('$socials'):
         await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/ax_atlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
     elif message.content.startswith('$coc-invite'):
@@ -168,7 +168,7 @@ async def on_message(message):
         else:
             await member.add_roles(role)
             await message.channel.send('You will now be pinged when the QOTD is posted!')
-    elif message.content.startswith('$info'):  # BROKEN, value does not update, but it might now?
+    elif message.content.startswith('$server-info'):  # BROKEN, value does not update, but it might now?
         total_members = message.author.guild.member_count
         await message.channel.send(f'Total Members: {total_members}')
     else:
