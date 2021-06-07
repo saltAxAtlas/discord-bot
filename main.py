@@ -14,7 +14,8 @@ languages = {
     'SPANISH': ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
     'FRENCH' : ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
     'POLISH' : ['Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota', 'Niedziela'],
-    'DUTCH' : ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'],
+    'DUTCH'  : ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'],
+    'TURKISH': ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar'],
 }
 MONDAY_START = 17
 MONDAY_LENGTH = 3
@@ -86,9 +87,9 @@ async def on_message(message):
             await member.add_roles(role)
             await message.channel.send('You will now be notified when saltAxAtlas goes live!')
     elif message.content.startswith('$coin-flip'):
-        await message.channel.send(choice(['Heads', 'Tails']) + '!')
+        await message.channel.send(random.choice(['Heads', 'Tails']) + '!')
     elif message.content.startswith('$coc-gamemode'):
-        await message.channel.send(choice(['Fastest', 'Shortest', 'Reverse']) + '!')
+        await message.channel.send(random.choice(['Fastest', 'Shortest', 'Reverse']) + '!')
     elif message.content.startswith('$going-live'):
         member = message.author
         role = get(member.guild.roles, name='Streamer')
@@ -148,7 +149,7 @@ async def on_message(message):
             member_timezone += sign + str(abs(shift)) 
         await message.channel.send(f'All times are in {member_timezone}:\n\t{dotw[0]}: {monday}:00 - {monday_end}:00\n\t{dotw[1]}: {tuesday}:00 - {tuesday_end}:00\n\t{dotw[2]}: {wednesday}\n\t{dotw[3]}: {thursday}\n\t{dotw[4]}: {friday}:00 - {friday_end}:00\n\t{dotw[5]}: {saturday}:00 - {saturday_end}:00\n\t{dotw[6]}: {sunday}')
     elif message.content.startswith('$socials'):
-        await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/ax_atlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
+        await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/saltAxAtlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
     elif message.content.startswith('$coc-invite'):
         member = message.author
         role = get(member.guild.roles, name='Invite to Clash')
@@ -167,10 +168,10 @@ async def on_message(message):
         else:
             await member.add_roles(role)
             await message.channel.send('You will now be pinged when the QOTD is posted!')
-    elif message.content.startswith('$server-info'):  # BROKEN, value does not update, but it might now?
+    elif message.content.startswith('$server-info'):  # BROKEN, BROKEN, BROKEN, value does not update?
         total_members = message.author.guild.member_count
         await message.channel.send(f'Total Members: {total_members}')
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('TOKEN = BIGBIGINT')
+client.run('TOKEN = SECRET')
