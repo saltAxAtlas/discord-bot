@@ -85,11 +85,9 @@ async def on_message(message):
             await member.add_roles(role)
             await message.channel.send('You will now be notified when saltAxAtlas goes live!')
     elif message.content.startswith('$coin-flip'):
-        rng = random.randint(0, 1)
-        await message.channel.send('Heads!' if rng == 1 else 'Tails!')
+        await message.channel.send(choice(['Heads', 'Tails']) + '!')
     elif message.content.startswith('$coc-gamemode'):
-        rng = random.randint(0, 2)
-        await message.channel.send('Fastest!' if rng == 0 else 'Shortest!' if rng == 1 else 'Reverse!')
+        await message.channel.send(choice(['Fastest', 'Shortest', 'Reverse']) + '!')
     elif message.content.startswith('$going-live'):
         member = message.author
         role = get(member.guild.roles, name='Streamer')
