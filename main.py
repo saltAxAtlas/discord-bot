@@ -17,20 +17,20 @@ languages = {
     'DUTCH'  : ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'],
     'TURKISH': ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar'],
 }
-MONDAY_START = 17
-MONDAY_LENGTH = 3
-TUESDAY_START = 17
+MONDAY_START = 0
+MONDAY_LENGTH = 0
+TUESDAY_START = 21
 TUESDAY_LENGTH = 4
 WEDNESDAY_START = 0
 WEDNESDAY_LENGTH = 0
-THURSDAY_START = 0
-THURSDAY_LENGTH = 0
-FRIDAY_START = 19
-FRIDAY_LENGTH = 5
+THURSDAY_START = 21
+THURSDAY_LENGTH = 4
+FRIDAY_START = 0
+FRIDAY_LENGTH = 0
 SATURDAY_START = 18
 SATURDAY_LENGTH = 5
-SUNDAY_START = 0
-SUNDAY_LENGTH = 0
+SUNDAY_START = 18
+SUNDAY_LENGTH = 5
 
 
 @client.event
@@ -131,25 +131,25 @@ async def on_message(message):
             member_language = 'ENGLISH'
         tz = timezones[member_timezone] + shift
         dotw = languages[member_language]
-        monday = (MONDAY_START + tz)%24
-        monday_end = (monday + MONDAY_LENGTH)%24
+        monday = 'No Stream'
+        monday_end = 'No Stream'
         tuesday = (TUESDAY_START + tz)%24
         tuesday_end = (tuesday + TUESDAY_LENGTH)%24
         wednesday = 'No Stream'
         wednesday_end = 'No Stream'
-        thursday = 'No Stream'
-        thursday_end = 'No Stream'
-        friday = (FRIDAY_START + tz)%24
-        friday_end = (friday + FRIDAY_LENGTH)%24
+        thursday = (THURSDAY_START + tz)%24
+        thursday_end = (thursday + THURSDAY_LENGTH)%24
+        friday = 'No Stream'
+        friday_end = 'No Stream'
         saturday = (SATURDAY_START + tz)%24
         saturday_end = (saturday + SATURDAY_LENGTH)%24
-        sunday = 'No Stream'
-        sunday_end = 'No Stream'
+        sunday = (SUNDAY_START + tz)%24
+        sunday_end = (sunday + SUNDAY_LENGTH)%24
         if sign:
             member_timezone += sign + str(abs(shift)) 
-        await message.channel.send(f'All times are in {member_timezone}:\n\t{dotw[0]}: {monday}:00 - {monday_end}:00\n\t{dotw[1]}: {tuesday}:00 - {tuesday_end}:00\n\t{dotw[2]}: {wednesday}\n\t{dotw[3]}: {thursday}\n\t{dotw[4]}: {friday}:00 - {friday_end}:00\n\t{dotw[5]}: {saturday}:00 - {saturday_end}:00\n\t{dotw[6]}: {sunday}')
+        await message.channel.send(f'All times are in {member_timezone}:\n\t{dotw[0]}: {monday}\n\t{dotw[1]}: {tuesday}:00 - {tuesday_end}:00\n\t{dotw[2]}: {wednesday}\n\t{dotw[3]}: {thursday}:00 - {thursday_end}:00\n\t{dotw[4]}: {friday}\n\t{dotw[5]}: {saturday}:00 - {saturday_end}:00\n\t{dotw[6]}: {sunday}:00 - {sunday_end}:00\n\tThere will also be unscheduled streams sometimes during the week after 5 PM EST!')
     elif message.content.startswith('$socials'):
-        await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/saltAxAtlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
+        await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/saltAxAtlas>\nTikTok: <https://www.tiktok.com/@saltaxatlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
     elif message.content.startswith('$coc-invite'):
         member = message.author
         role = get(member.guild.roles, name='Invite to Clash')
