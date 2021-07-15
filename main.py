@@ -1,13 +1,17 @@
 import discord
 from discord.utils import get
+from dotenv import load_dotenv
 import random
 import logging
+import os
+
+load_dotenv() # Loads content from .env to os env vars
 
 client = discord.Client()
 random.seed()
 logging.basicConfig(level=logging.INFO)
 
-timezones = {'NUT': -11, 'TAHT': -10, 'HDT': -9, 'AKDT': -8, 'PDT': -7, 'MST': -7, 'MDT': -6, 'CST': -6, 'GALT': -6, 'CDT': -5, 'ECT': -5, 'COT': -5, 'EDT': -4, 'EST': -4, 'AMT': -4, 'WGT': -3, 'GST': -2, 'CVT': -1, 'AZOT': -1, 'GMT': 0, 'UTC': 0, 'WAT': 1, 'CET': 1, 'CAT': 2, 'EET': 2, 'EAT': 3, 'MSK': 3, 'AST': 3, 'SAMT': 4, 'RET': 4, 'MUT': 4, 'YEKT': 5, 'ORAT': 5, 'MVT': 5, 'TFT': 5, 'OMST': 6, 'ALMT': 6, 'KGT': 6, 'BST': 6, 'KRAT': 7, 'WIB': 7, 'ICT': 7, 'AWST': 8, 'PHST': 8, 'ULAT': 8, 'IRKT': 8, 'WITA': 8, 'BNT': 8, 'WIT': 9, 'YAKT': 9, 'JST': 9, 'PGT': 10, 'AEST': 10, 'VLAT': 10, 'VUT': 11, 'SRET': 11, 'MAGT': 11, 'SBT': 11, 'CHADT': 12, 'FJT': 12, 'ANAT': 12, 'NZDT': 13, 'HST': 14}
+timezones = {'NUT': -11, 'TAHT': -10, 'HDT': -9, 'AKDT': -8, 'PDT': -7, 'MST': -7, 'MDT': -6, 'CST': -6, 'GALT': -6, 'CDT': -5, 'ECT': -5, 'COT': -5, 'EDT': -4, 'EST': -4, 'AMT': -4, 'WGT': -3, 'GST': -2, 'CVT': -1, 'AZOT': -1, 'GMT': 0, 'UTC': 0, 'WAT': 1, 'CET': 1, 'CEST': 2, 'CAT': 2, 'EET': 2, 'EAT': 3, 'MSK': 3, 'AST': 3, 'SAMT': 4, 'RET': 4, 'MUT': 4, 'YEKT': 5, 'ORAT': 5, 'MVT': 5, 'TFT': 5, 'OMST': 6, 'ALMT': 6, 'KGT': 6, 'BST': 6, 'KRAT': 7, 'WIB': 7, 'ICT': 7, 'AWST': 8, 'PHST': 8, 'ULAT': 8, 'IRKT': 8, 'WITA': 8, 'BNT': 8, 'WIT': 9, 'YAKT': 9, 'JST': 9, 'PGT': 10, 'AEST': 10, 'VLAT': 10, 'VUT': 11, 'SRET': 11, 'MAGT': 11, 'SBT': 11, 'CHADT': 12, 'FJT': 12, 'ANAT': 12, 'NZDT': 13, 'HST': 14}
 languages = {
     'ENGLISH': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     'GERMAN' : ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
@@ -45,7 +49,7 @@ async def on_member_join(member):  # Does not send message?
 @client.event
 async def on_message(message):
 
-    if message.author == client.user:
+    if message.author == client.user or message.author.bot:
         return
 
     message_rng = random.randint(0,4999)
@@ -60,13 +64,12 @@ async def on_message(message):
 
     if not message.content.startswith('$'):
         return
-    
+    member = message.author
     if message.content.startswith('$commands'):
         await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule \"{Timezone}\" \"{Language}\"\n10. $socials\n11.  $coc-invite\n12. $qotd\n13. $server-info')
     elif message.content.startswith('$help'):
         await message.channel.send('Try \'$commands\' to see a simplified command list.\n\t1. $commands - a list of available commands.\n\t2. $help - an indepth explanation of the available commands.\n\t3. $hello - the bot will say hello to you.\n\t4. $say \"{Your Message Here}\" - lets you control what the bot says.\n\t     (keep it clean please).\n\t5. $notified - gives you the role \'Notified\' within the server. This role is pinged at the\n\t     start of every stream so you know when I go live. If you want to remove the role,\n\t     simply use the command again.\n\t6. $coin-flip - generate a random coin flip.\n\t7. $coc-gamemode - generate a random CoC gamemode to play!\n\t8. $going-live - pings \'Notified\' when I go live (only I can use this).\n\t9. $schedule \"{Timezone}\" \"{Language}\" - stream schedule for any given week.\n\t10. $socials - a list of my social media links.\n\t11. $coc-invite - give you the role \'Invite to Clash\' which anyone can ping when they are\n\t     looking for people to clash with. Use the command again to remove the role.\n\t12. $qotd - give you the role \'QOTD Notified\' which is pinged everyday when\n\t     the QOTD is posted. Use the command again to remove the role.\n\t13. $server-info - outputs the number of members in the server.')
     elif message.content.startswith('$hello'):
-        member = message.author
         await message.channel.send(f'Hello, {member.name}!')
     elif message.content.startswith('$say'):
         try:
@@ -78,7 +81,6 @@ async def on_message(message):
         except IndexError:
             await message.channel.send('... what should I say?')
     elif message.content.startswith('$notified'):
-        member = message.author
         role = get(member.guild.roles, name='Notified')
         if role in member.roles:
             await member.remove_roles(role)
@@ -91,7 +93,6 @@ async def on_message(message):
     elif message.content.startswith('$coc-gamemode'):
         await message.channel.send(random.choice(['Fastest', 'Shortest', 'Reverse']) + '!')
     elif message.content.startswith('$going-live'):
-        member = message.author
         role = get(member.guild.roles, name='Streamer')
         if role in member.roles:
             notified = get(member.guild.roles, name='Notified')
@@ -151,7 +152,6 @@ async def on_message(message):
     elif message.content.startswith('$socials'):
         await message.channel.send('Twitch: <https://twitch.tv/saltaxatlas>\nTwitter: <https://twitter.com/saltAxAtlas>\nTikTok: <https://www.tiktok.com/@saltaxatlas>\nGitHub: <https://github.com/saltAxAtlas>\nDiscord: <https://discord.gg/V56vXKe7mY>')
     elif message.content.startswith('$coc-invite'):
-        member = message.author
         role = get(member.guild.roles, name='Invite to Clash')
         if role in member.roles:
             await member.remove_roles(role)
@@ -160,7 +160,6 @@ async def on_message(message):
             await member.add_roles(role)
             await message.channel.send('You will now be pinged when people are looking for others to clash with!')
     elif message.content.startswith('$qotd'):
-        member = message.author
         role = get(member.guild.roles, name='Notified QOTD')
         if role in member.roles:
             await member.remove_roles(role)
@@ -174,4 +173,4 @@ async def on_message(message):
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run('TOKEN = SECRET')
+client.run(os.environ.get('TOKEN'))
