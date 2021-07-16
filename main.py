@@ -1,9 +1,15 @@
 import discord
 from discord.utils import get
+import os
 from dotenv import load_dotenv
 import random
 import logging
-import os
+
+# TODO
+# Add more timezones / languages
+# Get special characters working
+# Get member messenge on join working
+# Get $info working
 
 load_dotenv() # Loads content from .env to os env vars
 
@@ -20,7 +26,7 @@ languages = {
     'POLISH' : ['Poniedzialek', 'Wtorek', 'Sroda', 'Czwartek', 'Piatek', 'Sobota', 'Niedziela'],
     'DUTCH'  : ['Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Zondag'],
     'TURKISH': ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar'],
-    'LITHUANIAN': ['Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis', 'Sekmadienis'],
+    'LITHUANIAN': ['Pirmadienis', 'Antradienis', 'Treciadienis', 'Ketvirtadienis', 'Penktadienis', 'Sestadienis', 'Sekmadienis'],
 }
 MONDAY_START = 0
 MONDAY_LENGTH = 0
@@ -43,7 +49,7 @@ async def on_ready():
     print(f'We have logged in as {client.user}')
 
 @client.event
-async def on_member_join(member):  # Does not send message?
+async def on_member_join(member):
     await member.create_dm()
     await member.dm_channel.send(f'Hi {member.name}, Welcome to my Discord server! Please be sure to check out the rules-and-guidelines channel before you begin chatting. I hope you have a great time in the server! Thank you for joining!')
 
@@ -53,9 +59,9 @@ async def on_message(message):
     if message.author == client.user or message.author.bot:
         return
 
+    member = message.author
     message_rng = random.randint(0,4999)
     if message_rng == 69:
-        member = message.author
         role = get(member.guild.roles, name='Chosen')
         if role in member.roles:
             await message.channel.send(f'{member.name}, you lucky duck!')
@@ -65,7 +71,7 @@ async def on_message(message):
 
     if not message.content.startswith('$'):
         return
-    member = message.author
+
     if message.content.startswith('$commands'):
         await message.channel.send('1.  $commands\n2.  $help\n3.  $hello\n4.  $say \"{Your Message Here}\"\n5.  $notified\n6.  $coin-flip\n7.  $coc-gamemode\n8.  $going-live\n9.  $schedule \"{Timezone}\" \"{Language}\"\n10. $socials\n11.  $coc-invite\n12. $qotd\n13. $server-info')
     elif message.content.startswith('$help'):
@@ -174,4 +180,4 @@ async def on_message(message):
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
-client.run(os.environ.get('TOKEN'))
+client.run(os.getenv("TOKEN"))
