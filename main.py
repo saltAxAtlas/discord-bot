@@ -6,6 +6,7 @@ import random
 import logging
 
 # TODO
+# Slash commands
 # Add more timezones
 # Get member messenge on join working
 # Get $info working
