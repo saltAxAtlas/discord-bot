@@ -30,6 +30,7 @@ languages = {
     'ITALIAN':      ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'],
     'JAPANESE':     ['げつようび', 'かようび', 'すいようび', 'もくようび', 'きんようび', 'どようび', 'にちようび'],
     'RUSSIAN':      ['понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье'],
+    'SWEDISH':      ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'],
 }
 MONDAY_START = 0
 MONDAY_LENGTH = 0
