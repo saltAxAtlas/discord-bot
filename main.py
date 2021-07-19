@@ -10,6 +10,7 @@ import logging
 # Add more timezones
 # Get member messenge on join working
 # Get $info working
+# Auto post $going-live
 
 load_dotenv() # Loads content from .env to os env vars
 
