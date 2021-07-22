@@ -7,6 +7,7 @@ This is a poorly written Discord bot for a streaming community server!
 -   [ ] Message Members on Joining Server
 -   [ ] Fix $server-info, Add More Info to Command
 -   [ ] Auto Post $going-live
+-   [ ] Add $invite Command
 
 ## Use Instructions:
 1. Install Dependencies
