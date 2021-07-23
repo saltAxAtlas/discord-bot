@@ -7,7 +7,8 @@ import logging
 
 load_dotenv() # Loads content from .env to os env vars
 
-client = discord.Client()
+intents = discord.Intents.all()
+client = discord.Client(intents = intents)
 random.seed()
 logging.basicConfig(level=logging.INFO)
 
@@ -48,8 +49,7 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    await member.create_dm()
-    await member.dm_channel.send(f'Hi {member.name}, Welcome to my Discord server! Please be sure to check out the rules-and-guidelines channel before you begin chatting. I hope you have a great time in the server! Thank you for joining!')
+    await member.send(f'Hi {member.name}, Welcome to my Discord server! Please be sure to check out the rules-and-guidelines channel before you begin chatting. I hope you have a great time in the server! Thank you for joining!')
 
 @client.event
 async def on_message(message):
