@@ -16,5 +16,5 @@ This is a poorly written Discord bot for a streaming community server!
 	- Place your bot token in example.env, and rename it to '.env'
 3. Adjust Stream Schedule
 	- Adjust the values in main.py to match your stream times
-4. Ajust Discord Roles
+4. Adjust Discord Roles
 	- Adjust role names to match the roles of your server
