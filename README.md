@@ -4,7 +4,7 @@ This is a poorly written Discord bot for a streaming community server!
 ## TODO:
 -   [ ] Slash Command Integration
 -   [ ] Add More Timezone / Language Support
--   [ ] Message Members on Joining Server
+-   [X] Message Members on Joining Server
 -   [ ] Fix $server-info, Add More Info to Command
 -   [ ] Auto Post $going-live
 -   [ ] Add $invite Command
