@@ -11,7 +11,7 @@ This is a poorly written Discord bot for a streaming community server!
 
 ## Use Instructions:
 1. Install Dependencies
-	- Check requirements.txt for the dependencies
+	- Run `python3 -m pip install -r requirements.txt`
 2. Replace Bot Token
 	- Place your bot token in example.env, and rename it to '.env'
 3. Adjust Stream Schedule
