@@ -4,10 +4,10 @@ cmd = {
 	'command': 'qotd',
 	'aliases': [],
 	'description': 'gives you the \'QOTD Notified\'. role',
-	'run': exec
+	'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
     member = message.author
     role = get(member.guild.roles, name='Notified QOTD')
     if role in member.roles:

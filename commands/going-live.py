@@ -4,10 +4,10 @@ cmd = {
     'command': 'going-live',
     'aliases': ['goinglive'],
     'description': 'pings \'Notified\' (only salt can use this).',
-    'run': exec
+    'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
     role = get(message.guild.roles, name='Streamer')
     if role in message.author.roles:
         notified = get(message.guild.roles, name='Notified')

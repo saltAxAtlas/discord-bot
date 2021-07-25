@@ -2,7 +2,7 @@ cmd = {
 	'command': 'socials',
 	'aliases': ['social'],
 	'description': 'a list of my social media links.',
-	'run': exec
+	'run': execute
 }
 
 socials = {
@@ -13,7 +13,7 @@ socials = {
     'Discord': 'https://discord.gg/V56vXKe7mY'
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
 	maxlen = max(map(len, socials.keys()))
 	resp = 'Check out my socials to stay up to date!'
 	for i in socials:

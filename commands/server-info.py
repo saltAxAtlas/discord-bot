@@ -4,10 +4,10 @@ cmd = {
 	'command': 'server-info',
 	'aliases': ['serverinfo', 'info'],
 	'description': 'displays information about the server.',
-	'run': exec
+	'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
 	bot_count = 0
 	bot_role = get(message.author.guild.roles, name='Bots')
 	server_members = message.guild.members

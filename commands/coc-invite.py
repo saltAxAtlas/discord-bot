@@ -4,10 +4,10 @@ cmd = {
 	'command': 'coc-invite',
 	'aliases': ['cocinvite'],
 	'description': 'gives you the \'Invite to Clash\' role.',
-	'run': exec
+	'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
     role = get(message.guild.roles, name='Invite to Clash')
     if role in message.author.roles:
         await message.author.remove_roles(role)

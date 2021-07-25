@@ -2,7 +2,7 @@ cmd = {
 	'command': 'schedule',
 	'aliases': ['sch'],
 	'description': 'displays the stream schedule.',
-	'run': exec
+	'run': execute
 }
 
 # Key -> Day, Value -> [start_time, stream_length]
@@ -80,7 +80,7 @@ languages = {
     'PIG_LATIN':    ['Ondaymay', 'Uesdaytay', 'Ednesdayway', 'Ursdaythay', 'Idayfray', 'Aturdaysay', 'Undaysay']
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
     try:
         commands = message.content.upper().split()[1:]
         if len(commands) >= 2:

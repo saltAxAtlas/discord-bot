@@ -2,10 +2,10 @@ cmd = {
 	'command': 'commands',
 	'aliases': ['cmds'],
 	'description': 'a list of available commands.',
-	'run': exec
+	'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
 	resp = ''
 	cmds = vars['commands']
 	maxlen = len(cmds)+1

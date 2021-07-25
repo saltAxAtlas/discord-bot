@@ -4,8 +4,8 @@ cmd = {
 	'command': 'coc-gamemode',
 	'aliases': ['cocgamemode'],
 	'description': 'generates a random CoC gamemode to play.',
-	'run': exec
+	'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
 	return await message.channel.send(choice(['Fastest!', 'Shortest!', 'Reverse!']))

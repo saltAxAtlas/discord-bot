@@ -2,10 +2,10 @@ cmd = {
 	'command': 'say',
 	'aliases': [],
 	'description': 'lets you control what the bot says.',
-	'run': exec
+	'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
 	try:
 		response = message.content[4:].lstrip()
 		if response:
