@@ -1,6 +1,6 @@
 cmd = {
 	'command': 'commands',
-	'aliases': [],
+	'aliases': ['cmds'],
 	'description': 'a list of available commands.',
 	'run': exec
 }

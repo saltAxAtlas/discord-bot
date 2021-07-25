@@ -5,7 +5,7 @@ This is a poorly written Discord bot for a streaming community server!
 -   [ ] Slash Command Integration
 -   [X] Add More Timezone / Language Support
 -   [X] Message Members on Joining Server
--   [ ] Fix $server-info, Add More Info to Command
+-   [X] Fix $server-info, Add More Info to Command
 -   [ ] Auto Post $going-live
 -   [ ] Add $invite Command
 -	[ ] Add $rules Command
@@ -18,6 +18,6 @@ This is a poorly written Discord bot for a streaming community server!
 2. Replace Bot Token
 	- Place your bot token in example.env, and rename it to '.env'
 3. Adjust Stream Schedule
-	- Adjust the values in main.py to match your stream times
+	- Adjust the values in /commands/schedule.py to match your stream times
 4. Adjust Discord Roles
 	- Adjust role names to match the roles of your server

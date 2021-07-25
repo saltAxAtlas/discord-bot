@@ -8,7 +8,8 @@ cmd = {
 }
 
 async def exec(message, vars):
-	role = get(member.guild.roles, name='Notified QOTD')
+    member = message.author
+    role = get(member.guild.roles, name='Notified QOTD')
     if role in member.roles:
         await member.remove_roles(role)
         await message.channel.send('You will no longer be pinged when the QOTD is posted :(')

@@ -2,13 +2,16 @@ import discord
 from os import getenv, listdir, getcwd
 from sys import path
 from dotenv import load_dotenv
+from discord.utils import get
 import logging
+import random
 
 load_dotenv() # Loads content from .env to OS env variables
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 logging.basicConfig(level=logging.INFO)
+random.seed()
 
 command_prefix = '$'
 
@@ -16,6 +19,8 @@ command_prefix = '$'
 commands = []
 path.append(getcwd() + '/commands')
 for file in listdir('commands'):
+    if file == '__pycache__':
+        continue
     commands.append(__import__(file[:-3]).cmd) # [:-3] to get rid of .py
 path.remove(getcwd() + '/commands')
 
@@ -45,6 +50,7 @@ async def on_message(message):
 
     if not message.content.startswith(command_prefix):
         return
+
     command = message.content[len(command_prefix):].split(' ')[0]
     
     for cmd in commands:

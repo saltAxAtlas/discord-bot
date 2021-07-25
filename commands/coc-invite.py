@@ -8,7 +8,7 @@ cmd = {
 }
 
 async def exec(message, vars):
-	role = get(message.guild.roles, name='Invite to Clash')
+    role = get(message.guild.roles, name='Invite to Clash')
     if role in message.author.roles:
         await message.author.remove_roles(role)
         return await message.channel.send('You will no longer be pinged when people are starting private clashes :(')

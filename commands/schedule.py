@@ -1,6 +1,6 @@
 cmd = {
 	'command': 'schedule',
-	'aliases': [],
+	'aliases': ['sch'],
 	'description': 'displays the stream schedule.',
 	'run': exec
 }
@@ -17,7 +17,8 @@ schedule_def = {
     'Sunday':       [18, 5]
 }
 special_event_def = {
-    'First Saturday':   'Sub / Follow - athon on the first Saturday of every month! :partying_face:'
+    'First Saturday':           'Sub / Follow - athon on the first Saturday of every month! :partying_face:',
+    'Banned Language Sundays':  'Ban the winning languages in CoC every Sunday!'
 }
 timezones = {
     'NUT': -11, 'SST': -11, 
@@ -80,67 +81,67 @@ languages = {
 }
 
 async def exec(message, vars):
-	try:
-		commands = message.content.upper().split()[1:]
-		if len(commands) >= 2:
-			member_timezone, member_language = commands[:2]
-		elif len(commands) == 1:
-			member_timezone = commands[0]
-			member_language = 'ENGLISH'
-		else:
-			member_timezone = 'EST'
-			member_language = 'ENGLISH'
-	except IndexError:
-		member_timezone = 'EST'
-		member_language = 'ENGLISH'
+    try:
+        commands = message.content.upper().split()[1:]
+        if len(commands) >= 2:
+            member_timezone, member_language = commands[:2]
+        elif len(commands) == 1:
+            member_timezone = commands[0]
+            member_language = 'ENGLISH'
+        else:
+            member_timezone = 'EST'
+            member_language = 'ENGLISH'
+    except IndexError:
+        member_timezone = 'EST'
+        member_language = 'ENGLISH'
 
-	shift = 0
-	sign = '+' if '+' in member_timezone else '-' if '-' in member_timezone else ''
-	if sign:
-		member_timezone, shift = member_timezone.split(sign)
-		try: 
-			shift = int(shift)
-		except: 
-			return await message.channel.send(f'{shift} is not a valid number following the format \'timezone{sign}shift\'.');
-		if sign == '-': 
-			shift = -shift
+    shift = 0
+    sign = '+' if '+' in member_timezone else '-' if '-' in member_timezone else ''
+    if sign:
+        member_timezone, shift = member_timezone.split(sign)
+        try: 
+            shift = int(shift)
+        except: 
+            return await message.channel.send(f'{shift} is not a valid number following the format \'timezone{sign}shift\'.');
+        if sign == '-': 
+            shift = -shift
 
-	if member_timezone not in timezones:
-		await message.channel.send(f'{member_timezone} is not currently supported! Defaulting to EST')
-		member_timezone = 'EST'
+    if member_timezone not in timezones:
+        await message.channel.send(f'{member_timezone} is not currently supported! Defaulting to EST')
+        member_timezone = 'EST'
 
-	if member_language not in languages:
-		await message.channel.send(f'{member_language} is not currently supported! Defaulting to English')
-		member_language = 'ENGLISH'
+    if member_language not in languages:
+        await message.channel.send(f'{member_language} is not currently supported! Defaulting to English')
+        member_language = 'ENGLISH'
 
-	tz = timezones[member_timezone] + shift
-	member_days = languages[member_language]
-	day_max_length = max(map(len, member_days))
-	resp = f'All times are in {member_timezone}:\n'
+    tz = timezones[member_timezone] + shift
+    member_days = languages[member_language]
+    day_max_length = max(map(len, member_days))
+    if sign:
+        member_timezone += sign + str(abs(shift)) # shift was stripped from input earlier, so add it back on for the print statement
+    resp = f'All times are in {member_timezone}:\n'
 
-	for i, v in enumerate(member_days):
-		day = v.ljust(day_max_length)
-		sched = schedule_def[languages['ENGLISH'][i]]
-		resp += f'\t`{day}`:\t'
-		if sched[0] == -1:
-			resp += 'No Stream :(\n'
-			continue
-		# Multiple resp += to avoid a large f-string
-		resp += str(int(sched[0] + tz) % 24)
-		resp += ':'
-		resp += '00' if type(tz) == int else '30'
-		resp += ' - '
-		resp += str(int(sum(sched) + tz) % 24)
-		resp += ':'
-		resp += '00' if type(tz) == int else '30'
-		resp += '\n'
-	resp = resp.strip() + '\n\tThere will also be unscheduled streams sometimes during the week after 5 PM EST'
-	if special_event_def:
-		resp += '\n\nPlanned Special Events:'
-		event_max_length = max(map(len, special_event_def.keys()))
-		for i in special_event_def:
-			resp += f'\n\t`{i.ljust(event_max_length)}` -> {special_event_def[i]}'
-	# Useless??
-	# if sign:
-	# 	member_timezone += sign + str(abs(shift)) 
-	return await message.channel.send(schedule_print)
+    for i, v in enumerate(member_days):
+        day = v.ljust(day_max_length)
+        sched = schedule_def[languages['ENGLISH'][i]]
+        resp += f'\t`{day}`:\t'
+        if sched[0] == -1:
+            resp += 'No Stream :(\n'
+            continue
+        # Multiple resp += to avoid a large f-string
+        resp += str(int(sched[0] + tz) % 24)
+        resp += ':'
+        resp += '00' if type(tz) == int else '30'
+        resp += ' - '
+        resp += str(int(sum(sched) + tz) % 24)
+        resp += ':'
+        resp += '00' if type(tz) == int else '30'
+        resp += '\n'
+    resp = resp.strip() + '\n\tThere will also be unscheduled streams sometimes during the week after 5 PM EST'
+    if special_event_def:
+        resp += '\n\nPlanned Special Events:'
+        event_max_length = max(map(len, special_event_def.keys()))
+        for i in special_event_def:
+            resp += f'\n\t`{i.ljust(event_max_length)}` -> {special_event_def[i]}'
+
+    return await message.channel.send(resp)
