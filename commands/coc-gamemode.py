@@ -7,5 +7,5 @@ cmd = {
 	'run': exec
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
 	return await message.channel.send(choice(['Fastest!', 'Shortest!', 'Reverse!']))
