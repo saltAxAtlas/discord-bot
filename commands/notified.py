@@ -4,10 +4,10 @@ cmd = {
 	'command': 'notified',
 	'aliases': [],
 	'description': 'gives you the \'Notified\' role.',
-	'run': exec
+	'run': execute
 }
 
-async def exec(message, vars):
+async def execute(message, vars):
     role = get(message.guild.roles, name='Notified')
     if role in message.author.roles:
         await message.author.remove_roles(role)
