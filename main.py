@@ -55,7 +55,7 @@ async def on_message(message):
     
     for cmd in commands:
         if command == cmd['command'] or command in cmd['aliases']:
-            cmd['run'](message, globals())
+            await cmd['run'](message, globals())
             break
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')

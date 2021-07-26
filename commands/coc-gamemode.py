@@ -1,5 +1,8 @@
 from random import choice
 
+async def execute(message, vars):
+	return await message.channel.send(choice(['Fastest!', 'Shortest!', 'Reverse!']))
+
 cmd = {
 	'command': 'coc-gamemode',
 	'aliases': ['cocgamemode'],
@@ -7,5 +10,3 @@ cmd = {
 	'run': execute
 }
 
-async def execute(message, vars):
-	return await message.channel.send(choice(['Fastest!', 'Shortest!', 'Reverse!']))

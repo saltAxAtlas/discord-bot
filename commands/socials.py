@@ -1,10 +1,3 @@
-cmd = {
-	'command': 'socials',
-	'aliases': ['social'],
-	'description': 'a list of my social media links.',
-	'run': execute
-}
-
 socials = {
     'Twitch':  'https://twitch.tv/saltaxatlas',
     'Twitter': 'https://twitter.com/saltAxAtlas',
@@ -17,5 +10,12 @@ async def execute(message, vars):
 	maxlen = max(map(len, socials.keys()))
 	resp = 'Check out my socials to stay up to date!'
 	for i in socials:
-		resp += f'\n\t{i.ljust(maxlen)}: <{socials[i]}>'
+		resp += f'\n\t`{i.ljust(maxlen)}`: <{socials[i]}>'
 	return await message.channel.send(resp.rstrip())
+
+cmd = {
+	'command': 'socials',
+	'aliases': ['social'],
+	'description': 'a list of my social media links.',
+	'run': execute
+}

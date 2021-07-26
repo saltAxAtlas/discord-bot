@@ -1,10 +1,3 @@
-cmd = {
-	'command': 'schedule',
-	'aliases': ['sch'],
-	'description': 'displays the stream schedule.',
-	'run': execute
-}
-
 # Key -> Day, Value -> [start_time, stream_length]
 # -1 signifies that there will not be a stream
 schedule_def = {
@@ -16,10 +9,12 @@ schedule_def = {
     'Saturday':     [18, 5],
     'Sunday':       [18, 5]
 }
+
 special_event_def = {
     'First Saturday':           'Sub / Follow - athon on the first Saturday of every month! :partying_face:',
     'Banned Language Sundays':  'Ban the winning languages in CoC every Sunday!'
 }
+
 timezones = {
     'NUT': -11, 'SST': -11, 
     'TAHT': -10, 'CKT': -10, 'LINT': -10, 'HST': -10,
@@ -49,6 +44,7 @@ timezones = {
     'VUT': 11, 'SRET': 11, 'MAGT': 11, 'SBT': 11, 
     'CHADT': 12, 'FJT': 12, 'ANAT': 12, 'NZDT': 12 
 }
+
 languages = {
     'ENGLISH':      ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     'GERMAN' :      ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'],
@@ -140,8 +136,14 @@ async def execute(message, vars):
     resp = resp.strip() + '\n\tThere will also be unscheduled streams sometimes during the week after 5 PM EST'
     if special_event_def:
         resp += '\n\nPlanned Special Events:'
-        event_max_length = max(map(len, special_event_def.keys()))
         for i in special_event_def:
-            resp += f'\n\t`{i.ljust(event_max_length)}` -> {special_event_def[i]}'
+            resp += f'\n\t{i} -> {special_event_def[i]}'
 
     return await message.channel.send(resp)
+
+cmd = {
+	'command': 'schedule',
+	'aliases': ['sch'],
+	'description': 'displays the stream schedule.',
+	'run': execute
+}

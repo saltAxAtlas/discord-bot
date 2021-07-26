@@ -1,12 +1,5 @@
 from discord.utils import get
 
-cmd = {
-	'command': 'server-info',
-	'aliases': ['serverinfo', 'info'],
-	'description': 'displays information about the server.',
-	'run': execute
-}
-
 async def execute(message, vars):
 	bot_count = 0
 	bot_role = get(message.author.guild.roles, name='Bots')
@@ -31,3 +24,10 @@ async def execute(message, vars):
 	for i in stats:
 		resp += f'\n\t`{i.ljust(maxlen)}`: {stats[i]}'
 	return await message.channel.send(resp.rstrip())
+
+cmd = {
+	'command': 'server-info',
+	'aliases': ['serverinfo', 'info'],
+	'description': 'displays information about the server.',
+	'run': execute
+}
