@@ -2,14 +2,14 @@
 This is a poorly written Discord bot for a streaming community server!
 
 ## TODO:
--   [ ] Slash Command Integration
+-   [ ] Slash Commands
 -   [X] Add More Timezone / Language Support
 -   [X] Message Members on Joining Server
 -   [X] Fix $server-info, Add More Info to Command
 -   [ ] Auto Post $going-live
--   [ ] Add $invite Command
--	[ ] Add $rules Command
--	[ ] Add Optional Parameters to $help, Print In-Depth Descriptions for each Command
+-   [X] Add $invite Command
+-	[X] Add $rules Command
+-	[X] Add Optional Parameters to $help, Print In-Depth Descriptions for each Command
 -	[ ] Assign Roles Base on Reactions
 
 ## Use Instructions:

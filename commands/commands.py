@@ -1,7 +1,7 @@
 async def execute(message, vars):
 	resp = 'List of Commands:\n'
 	cmds = vars['commands']
-	maxlen = 2 if len(cmds)+1 < 100 else 3
+	maxlen = len(str(len(cmds)+1))
 	for idx, val in enumerate(cmds):
 		resp += f'\t`{str(idx+1).rjust(maxlen)}`. {vars["command_prefix"]}{val["command"]}\n'
 	return await message.channel.send(resp.strip())
