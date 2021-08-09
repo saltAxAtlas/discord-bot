@@ -60,4 +60,38 @@ async def on_message(message):
     else:
         await message.channel.send(f'{message.content} is not a valid command. Try \'$commands\' for a list of available commands!')
 
+@client.event
+async def on_reaction_add(reaction, user):
+    channel_id = 874361456194375730
+    if reaction.message.channel.id != channel_id or user.bot:
+        return
+
+    notified_role = get(user.guild.roles, name='Notified')
+    invite_role = get(user.guild.roles, name='Invite to Clash')
+    qotd_role = get(user.guild.roles, name='Notified QOTD')
+
+    if reaction.emoji == '🥳':
+        await user.add_roles(notified_role)
+    elif reaction.emoji == '🖥️':
+        await user.add_roles(invite_role)
+    elif reaction.emoji == '❓':
+        await user.add_roles(qotd_role)
+
+@client.event
+async def on_reaction_remove(reaction, user):
+    channel_id = 874361456194375730
+    if reaction.message.channel.id != channel_id or user.bot:
+        return
+
+    notified_role = get(user.guild.roles, name='Notified')
+    invite_role = get(user.guild.roles, name='Invite to Clash')
+    qotd_role = get(user.guild.roles, name='Notified QOTD')
+
+    if reaction.emoji == '🥳':
+        await user.remove_roles(notified_role)
+    elif reaction.emoji == '🖥️':
+        await user.remove_roles(invite_role)
+    elif reaction.emoji == '❓':
+        await user.remove_roles(qotd_role)
+
 client.run(getenv("TOKEN"))

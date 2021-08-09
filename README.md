@@ -10,7 +10,7 @@ This is a poorly written Discord bot for a streaming community server!
 -   [X] Add $invite Command
 -	[X] Add $rules Command
 -	[X] Add Optional Parameters to $help, Print In-Depth Descriptions for each Command
--	[ ] Assign Roles Base on Reactions
+-	[X] Assign Roles Base on Reactions
 -	[ ] Add Poll Command (Vote With Reactions)
 
 ## Use Instructions:
