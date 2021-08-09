@@ -15,7 +15,9 @@ async def execute(message, vars):
 
 cmd = {
 	'command': 'socials',
-	'aliases': ['social'],
+	'aliases': ['social', 'social-links', 'links'],
+	'version': '1.0.0',
 	'description': 'a list of my social media links.',
+	'in-depth-desc': 'When this command is run, it will post all of saltAxAtlas\'s social media links. You should follow them!',
 	'run': execute
 }

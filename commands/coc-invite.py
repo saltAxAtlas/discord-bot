@@ -12,6 +12,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'coc-invite',
 	'aliases': ['cocinvite'],
+    'version': '1.0.0',
 	'description': 'gives you the \'Invite to Clash\' role.',
+    'in-depth-desc': 'When this command is run, it will ping everyone with the role "Invite to Clash". Use this command if you want to set up a CoC lobby.',
 	'run': execute
 }

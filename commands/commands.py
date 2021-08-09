@@ -9,6 +9,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'commands',
 	'aliases': ['cmds'],
+	'version': '1.0.0',
 	'description': 'a list of available commands.',
+	'in-depth-desc': 'When this command is run, it will output a list of all of the available commands for this bot.',
 	'run': execute
 }

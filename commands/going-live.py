@@ -11,6 +11,8 @@ async def execute(message, vars):
 cmd = {
     'command': 'going-live',
     'aliases': ['goinglive'],
+    'version': '1.0.0',
     'description': 'pings \'Notified\' (only salt can use this).',
+    'in-depth-desc': 'When this command is run, it will ping everyone with the role of "Notified". Only salt can run this command, and it will be run at the start of every stream.',
     'run': execute
 }

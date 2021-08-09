@@ -11,6 +11,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'say',
 	'aliases': [],
+	'version': '1.0.0',
 	'description': 'lets you control what the bot says.',
+	'in-depth-desc': 'When this command is run, the bot will say whatever you type after the command.',
 	'run': execute
 }

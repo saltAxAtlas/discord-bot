@@ -4,6 +4,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'hello',
 	'aliases': ['hi'],
+	'version': '1.0.0',
 	'description': 'the bot will say hello to you.',
+	'in-depth-desc': 'When this command is run, the bot will say hello to you!',
 	'run': execute
 }

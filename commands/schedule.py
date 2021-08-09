@@ -144,6 +144,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'schedule',
 	'aliases': ['sch'],
+    'version': '1.0.0',
 	'description': 'displays the stream schedule.',
+    'in-depth-desc': 'When this command is run, it will post the stream schedule, as well as special planned events. This command supports addition languages, and timezones. The expected input for this command is: $schedule Timezone Language.',
 	'run': execute
 }

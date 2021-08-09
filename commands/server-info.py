@@ -28,6 +28,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'server-info',
 	'aliases': ['serverinfo', 'info'],
+	'version': '1.0.0',
 	'description': 'displays information about the server.',
+	'in-depth-desc': 'When this command is run, it will display information about the server, such as the date it was created and the number of members.',
 	'run': execute
 }

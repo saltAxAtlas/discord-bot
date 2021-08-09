@@ -10,6 +10,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'rules',
 	'aliases': ['rule', 'guidelines'],
+    'version': '1.0.0',
 	'description': 'displays the rules for the server.',
+    'in-depth-desc': 'When this command is run, it will post the rules for the server.',
 	'run': execute
 }

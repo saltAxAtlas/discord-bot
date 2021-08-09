@@ -13,6 +13,8 @@ async def execute(message, vars):
 cmd = {
 	'command': 'qotd',
 	'aliases': [],
+    'version': '1.0.0',
 	'description': 'gives you the \'QOTD Notified\' role',
+    'in-depth-desc': 'When this command is run, it will give the member the role of "QOTD Notified". This role is pinged every day when the QOTD is posted. If you wish to remove the role, you may use the command again.',
 	'run': execute
 }
