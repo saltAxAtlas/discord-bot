@@ -1,10 +1,11 @@
 import discord
-from os import getenv, listdir, getcwd
+from os import getenv, listdir, getcwd, system
 from sys import path
 from dotenv import load_dotenv
 from discord.utils import get
 import logging
 import random
+from json import loads as json
 
 load_dotenv() # Loads content from .env to OS env variables
 

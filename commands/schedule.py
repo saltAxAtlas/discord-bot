@@ -1,17 +1,17 @@
-# Key -> Day, Value -> [start_time, stream_length]
-# -1 signifies that there will not be a stream
+# Key -> Day, Value -> [start_time, stream_length, plan_for_stream]
+# -1 signifies that there will not be a stream, time in GMT 
 schedule_def = {
-    'Monday':       [-1, -1],
-    'Tuesday':      [21, 4],
-    'Wednesday':    [-1, -1],
-    'Thursday':     [21, 4],
-    'Friday':       [-1, -1],
-    'Saturday':     [18, 5],
-    'Sunday':       [18, 5]
+    'Monday':       [-1, -1, 'None'],
+    'Tuesday':      [17, 4, 'CoC / Yare'],
+    'Wednesday':    [-1, -1, 'None'],
+    'Thursday':     [17, 4, 'CoC / BinarySearch'],
+    'Friday':       [16.5, 4, 'CoC / Projects / Variety'],
+    'Saturday':     [-1, -1, 'None'],
+    'Sunday':       [18, 5, 'CoC']
 }
 
 special_event_def = {
-    'First Saturday':           'Sub / Follow - athon on the first Saturday of every month! :partying_face:',
+    'First Friday':             'Sub / Follow - athon on the first friday of every month! :partying_face:',
     'Banned Language Sundays':  'Ban the winning languages in CoC every Sunday!'
 }
 
@@ -127,24 +127,26 @@ async def execute(message, vars):
         # Multiple resp += to avoid a large f-string
         resp += str(int(sched[0] + tz) % 24)
         resp += ':'
-        resp += '00' if type(tz) == int else '30'
+        resp += '00' if type(tz) == int and type(sched[0]) == int else '30'
         resp += ' - '
-        resp += str(int(sum(sched) + tz) % 24)
+        resp += str(int(sum(sched[:2]) + tz) % 24)
         resp += ':'
-        resp += '00' if type(tz) == int else '30'
+        resp += '00' if type(tz) == int and type(sched[0]) == int else '30'
+        resp += ' -> '
+        resp += sched[2]
         resp += '\n'
-    resp = resp.strip() + '\n\tThere will also be unscheduled streams sometimes during the week after 5 PM EST'
+    resp = resp.strip()
     if special_event_def:
         resp += '\n\nPlanned Special Events:'
-        for i in special_event_def:
-            resp += f'\n\t{i} -> {special_event_def[i]}'
+        for key, value in special_event_def.items():
+            resp += f'\n\t{key} -> {value}'
 
     return await message.channel.send(resp)
 
 cmd = {
 	'command': 'schedule',
-	'aliases': ['sch'],
-    'version': '1.0.1',
+	'aliases': ['sch', 'sched'],
+    'version': '1.0.2',
 	'description': 'displays the stream schedule.',
     'in-depth-desc': 'When this command is run, it will post the stream schedule, as well as special planned events. This command supports addition languages, and timezones. The expected input for this command is: $schedule Timezone Language.',
 	'run': execute
