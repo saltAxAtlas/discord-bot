@@ -5,9 +5,23 @@ from dotenv import load_dotenv
 from discord.utils import get
 import logging
 import random
-from json import loads as json
+
+# import json
+# import requests
+# from twitchAPI.twitch import Twitch
+# from discord.ext import tasks
 
 load_dotenv() # Loads content from .env to OS env variables
+
+# client_id = getenv('client_id')
+# client_secret = getenv('salt_token')
+# twitch = Twitch(client_id, client_secret)
+# twitch.authenticate_app([])
+# TWITCH_STREAM_API_ENDPOINT_V5 = "https://api.twitch.tv/saltAxAtlas/streams/{}"
+# API_HEADERS = {
+#   'Client-ID': client_id,
+#   'Accept': 'application/vnd.twitchtv.v5+json',
+# }
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
@@ -94,5 +108,61 @@ async def on_reaction_remove(reaction, user):
         await user.remove_roles(invite_role)
     elif reaction.emoji == '❓':
         await user.remove_roles(qotd_role)
+
+# def checkuser(user):
+#     try:
+#         userid = twitch.get_users(logins=[user])['data'][0]['id']
+#         url = TWITCH_STREAM_API_ENDPOINT_V5.format(userid)
+#         try:
+#             req = requests.Session().get(url, headers=API_HEADERS)
+#             jsondata = req.json()
+#             if 'stream' in jsondata:
+#                 if jsondata['stream'] is not None:
+#                     return True
+#                 else:
+#                     return False
+#         except Exception as e:
+#             print("Error checking user: ", e)
+#             return False
+#     except IndexError:
+#         return False
+
+# @tasks.loop(seconds = 10)
+# async def live_loop():
+#     print("Loop")
+
+#     ii = str(random.randint(345345895, 39582345908))
+#     rv = open(ii + '.json', 'r', encoding='utf-8').read().strip()
+#     system('rm ' + ii + '.json')
+#     print(json(rv)[7]['data']['user']['stream'])
+#     return
+#     status = checkuser('saltAxAtlas')
+#     print(status)
+#     return
+
+#     guild = client.get_guild(808876491827314708)
+#     channel = client.get_channel(816392707664379984)
+#     role = get(guild.roles, name='Live')
+
+#     user_id = 808874804688977930
+#     user = client.get_user(user_id)
+
+#     if status is True:
+#         async for check_message in channel.history(limit=200):
+#             if "saltAxAtlas is streaming now at" in check_message.content:
+#                 break
+#             else:
+#                 await user.add_roles(role)
+#                 notified = get(guild.roles, name='Notified')
+#                 await channel.send(f'{notified.mention} saltAxAtlas is streaming now at https://twitch.tv/saltaxatlas !')
+#                 print(f"Salt started streaming. Sending a notification.")
+#                 break
+#     else:
+#         await user.remove_roles(role)
+#         async for check_message in channel.history(limit=200):
+#             if "saltAxAtlas is streaming now at" in check_message.content:
+#                 await check_message.delete()
+
+# live_loop.start()
 
 client.run(getenv("TOKEN"))
