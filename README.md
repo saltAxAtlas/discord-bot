@@ -3,7 +3,7 @@ This is a poorly written Discord bot for a streaming community server!
 
 ## TODO:
 -   [ ] Slash Commands
--	[ ] Add Poll Command (Vote With Reactions)
+-	[X] Add Poll Command (Vote With Reactions)
 -   [X] Auto Post $going-live
 -   [X] Add More Timezone / Language Support
 -   [X] Message Members on Joining Server
