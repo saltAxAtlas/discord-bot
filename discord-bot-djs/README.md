@@ -1,4 +1,4 @@
-# discord_bot
+# discord-bot
 This is a ~~poorly written~~ Discord bot for a streaming community server!
 
 ## TODO:
