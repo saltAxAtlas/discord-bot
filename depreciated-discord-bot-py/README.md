@@ -1,4 +1,4 @@
-# discord_bot
+# discord-bot
 This is a poorly written Discord bot for a streaming community server! It is written in Python using discord.py. This version of the bot is depreciated and will no longer be updated as features are added to the supported version of it. The support version of the bot can be found [here](https://github.com/saltAxAtlas/discord-bot/tree/main/discord-bot-djs).
 
 ## TODO:
