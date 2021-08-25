@@ -1,5 +1,5 @@
 # discord-bot
-This is a ~~poorly written~~ Discord bot for a streaming community server! Ported from Python to JavaScript by: @rozbrajaczpoziomow
+This is a ~~poorly written~~ Discord bot for a streaming community server! Ported from Python to JavaScript by: [@rozbrajaczpoziomow](https://github.com/rozbrajaczpoziomow)
 
 ## TODO:
 -	[ ] Auto Post $going-live
