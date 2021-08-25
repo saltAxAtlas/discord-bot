@@ -16,7 +16,6 @@ This is a ~~poorly written~~ Discord bot for a streaming community server! Porte
 ## Use Instructions:
 1. Install Dependencies
 	- Run `npm i`
-	- Run `npm i emoji-regex`
 2. Replace Tokens
 	- Place your bot token in `example.config.json` as `{ "token": "token_goes_here" }`
 	- Place client id in `example.config.json` as  `{"id": "client_id_here"}`
