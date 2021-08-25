@@ -1,5 +1,5 @@
 # discord_bot
-This is a poorly written Discord bot for a streaming community server!
+This is a ~~poorly written~~ Discord bot for a streaming community server!
 
 ## TODO:
 -	[ ] Auto Post $going-live
