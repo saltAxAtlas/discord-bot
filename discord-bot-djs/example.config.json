@@ -1,0 +1,12 @@
+{
+    "token": "BOT_TOKEN_HERE",
+    "twitch": {
+        "id":     "CLIENT_ID_HERE",
+        "secret": "CLIENT_SECRET_HERE",
+        "interval": 10000,
+        "guildIds": {
+            "GUILD_ID_HERE": "CHANNEL_TO_POST_GOING_LIVE_MESSAGE_ID"
+        },
+        "content":   "$! is now streaming at https://twitch.tv/$_"
+    }
+}
