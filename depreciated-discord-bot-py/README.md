@@ -1,8 +1,8 @@
 # discord_bot
-This is a poorly written Discord bot for a streaming community server!
+This is a poorly written Discord bot for a streaming community server! It is written in Python using discord.py. This version of the bot is depreciated and will no longer be updated as features are added to the supported version of it. The support version of the bot can be found [here](https://github.com/saltAxAtlas/discord-bot/tree/main/discord-bot-djs).
 
 ## TODO:
--   [ ] Slash Commands
+-   [ ] Slash Commands (Will Not Be Implemented)
 -	[X] Add Poll Command (Vote With Reactions)
 -   [X] Auto Post $going-live
 -   [X] Add More Timezone / Language Support
@@ -17,7 +17,9 @@ This is a poorly written Discord bot for a streaming community server!
 1. Install Dependencies
 	- Run `python3 -m pip install -r requirements.txt`
 2. Replace Bot Token
-	- Place your bot token in example.env, and rename it to '.env'
+	- Place your bot token in example.env
+	- Place your client id and client secret in example.env
+	- Rename it to .env
 3. Adjust Stream Schedule
 	- Adjust the values in /commands/schedule.py to match your stream times
 4. Adjust Discord Roles
