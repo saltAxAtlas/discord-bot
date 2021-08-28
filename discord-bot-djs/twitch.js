@@ -8,12 +8,17 @@ module.exports = async main => {
 		const token = json.access_token;
 		res(
 			setInterval(async () => {
-				const stream = await fetch('https://api.twitch.tv/helix/streams?user_login=saltaxatlas&first=1', { headers: { 'Client-Id': twitch.id, Authorization: `Bearer ${token}` } });
-				const stream_json = await stream.json();
-				// console.log(stream, stream_json)
-				const is_streaming = Object.keys(stream_json.data).length !== 0;
-				let name = stream_json.data[0]?.user_name;
-				main.exports.twitch(is_streaming, name);
+				try {
+					const stream = await fetch('https://api.twitch.tv/helix/streams?user_login=saltaxatlas&first=1', { headers: { 'Client-Id': twitch.id, Authorization: `Bearer ${token}` } });
+					const stream_json = await stream.json();
+					const is_streaming = Object.keys(stream_json.data).length !== 0;
+					let name = stream_json.data[0]?.user_name;
+					main.exports.twitch(is_streaming, name);
+				} catch(e) {
+					console.log('\t[!] Fetch Error! Stack trace:')
+					console.log(e.stack);
+					return;
+				}
 			}, twitch.interval)
 		)
 	});
