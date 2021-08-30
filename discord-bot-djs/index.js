@@ -66,7 +66,7 @@ client.on('ready', async () => {
 	Reload();
 	await client.application?.fetch();
 	await twitchSetup(module);
-	module.exports.embed = new MessageEmbed().setColor('#ABCDEF').setFooter(`Bot owner: ${client.application?.owner?.tag}`);
+	module.exports.embed = new MessageEmbed().setColor('#1B76FD').setFooter(`Bot owner: ${client.application?.owner?.tag}`);
 });
 
 client.on('interactionCreate', async interaction => {
