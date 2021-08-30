@@ -8,15 +8,15 @@ const schedule_def = [
     { from: { hours: 17, minutes: 0}, duration: 4, activities: [ 'CoC', 'Yare' ] },
     {},
     { from: { hours: 17, minutes: 0}, duration: 4, activities: [ 'CoC', 'BinarySearch' ] },
-    { from: { hours: 16, minutes: 30}, duration: 4, activities: [ 'CoC', 'Projects', 'Variety' ] },
+    { from: { hours: 19, minutes: 0}, duration: 4, activities: [ 'CoC', 'Projects', 'Variety' ] },
     {},
     { from: { hours: 18, minutes: 0}, duration: 5, activities: [ 'CoC' ] }
 ]
 
-const special_event_def = {
-    'First Friday':             'Sub / Follow - athon on the first friday of every month! :partying_face:',
-    'Banned Language Sundays':  'Ban the winning languages in CoC every Sunday!'
-}
+const special_event_def = [
+    { event: "First Friday", desc: "Sub / Follow - athon on the first friday of every month! :partying_face:"},
+    { event: "Banned Language Sundays", desc: "Ban the winning language in CoC every Sunday!"}
+]
 
 const timezones = {
     NUT: { hours: -11, minutes: 0 }, SST: { hours: -11, minutes: 0 },
@@ -115,6 +115,7 @@ module.exports = {
         language = languages[language];
 
         const days = []
+        const special_events = []
         let padding = language.map(s => s.length).sort((a, b) => b - a)[0]
 
         schedule_def.forEach((day, index) => {
@@ -122,15 +123,19 @@ module.exports = {
                 days.push(`\`${language[index].padEnd(padding)}\`: No stream`)
             else
                 days.push(`\`${language[index].padEnd(padding)}\`: `
-                    + `${String(day.from.hours + timezone.hours).padStart(2, '0')}:${String(day.from.minutes + timezone.minutes).padStart(2, '0')} - `
-                    + `${String(day.from.hours + timezone.hours + day.duration).padStart(2, '0')}:${String(day.from.minutes + timezone.minutes).padStart(2, '0')} -> `
+                    + `${String((day.from.hours + timezone.hours) % 24).padStart(2, '0')}:${String(day.from.minutes + timezone.minutes).padStart(2, '0')} - `
+                    + `${String((day.from.hours + timezone.hours + day.duration) % 24).padStart(2, '0')}:${String(day.from.minutes + timezone.minutes).padStart(2, '0')} -> `
                     + `${day.activities.join`, `}`)
+        });
+
+        special_event_def.forEach((eve) => {
+            special_events.push(`${eve.event}: ${eve.desc}`)
         });
 
         await interaction.reply({
                     embeds: [
                         new MessageEmbed(main.exports.embed).setDescription(
-                            days.join`\n`
+                            days.join`\n` + "\n\n" + special_events.join`\n`
                         )
                     ]
                 });
