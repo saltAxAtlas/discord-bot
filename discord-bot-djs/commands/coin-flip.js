@@ -9,7 +9,7 @@ module.exports = {
 		await interaction.reply({
 				embeds: [
 					new MessageEmbed(main.exports.embed).setDescription(
-						['Heads', 'Tails'][Math.floor(Math.random() * 2)]
+						['Heads!', 'Tails!'][Math.floor(Math.random() * 2)]
 					)
 				]
 			});

@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'coc-gamemode',
-	comm: new SlashCommandBuilder().setName('coc-gamemode').setDescription('Choose a random COC Gamemode'),
+	comm: new SlashCommandBuilder().setName('coc-gamemode').setDescription('Choose a random CoC gamemode'),
 	exec: async (interaction, client, main) => {
 
 		await interaction.reply({

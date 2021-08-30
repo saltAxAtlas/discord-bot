@@ -9,8 +9,6 @@ async function Refresh(commands, client) {
 	client.guilds.fetch();
 	let guilds = client.guilds.cache.map((guild, snowflake) => guild);
 
-	// console.log(commands);
-
 	console.log(`[*] Reloading slash commands for ${guilds.length} guilds`)
 	for(guild of guilds) {
 		try {

@@ -15,7 +15,7 @@ module.exports = async main => {
 					let name = stream_json.data[0]?.user_name;
 					main.exports.twitch(is_streaming, name);
 				} catch(e) {
-					console.log('\t[!] Fetch Error! Stack trace:')
+					console.log('[!] Fetch Error! Stack trace:')
 					console.log(e.stack);
 					return;
 				}

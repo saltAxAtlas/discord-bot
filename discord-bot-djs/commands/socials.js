@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'socials',
-	comm: new SlashCommandBuilder().setName('socials').setDescription('saltAxAtlas\'s socials!'),
+	comm: new SlashCommandBuilder().setName('socials').setDescription('saltAxAtlas\'s social links!'),
 	exec: async (interaction, client, main) => {
 
 		const socials = {

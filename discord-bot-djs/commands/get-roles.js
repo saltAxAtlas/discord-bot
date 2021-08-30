@@ -28,7 +28,7 @@ module.exports = {
 					.setStyle('PRIMARY')
 			]);
 
-		const embed = new MessageEmbed(main.exports.embed).setTitle('Click for roles')
+		const embed = new MessageEmbed(main.exports.embed).setTitle('Press the buttons below for roles!')
 
 		channel.send({ embeds: [ embed ], components: [ buttons ] })
 

@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'server-info',
-	comm: new SlashCommandBuilder().setName('server-info').setDescription('Get some information about the server'),
+	comm: new SlashCommandBuilder().setName('server-info').setDescription('Get information about the server'),
 	exec: async (interaction, client, main) => {
 
 		await interaction.deferReply();

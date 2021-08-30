@@ -19,10 +19,10 @@ module.exports = async (interaction, client, main) => {
 
 	if(interaction.member.roles.cache.map(( r, sf ) => r.id).includes(role.id)) {
 		interaction.member.roles.remove(role);
-		interaction.reply({ embeds: [ new MessageEmbed(main.exports.embed).setDescription(`You got the \`${role.name}\` role removed!`) ], ephemeral: true });
+		interaction.reply({ embeds: [ new MessageEmbed(main.exports.embed).setDescription(`\`${role.name}\` role removed!`) ], ephemeral: true });
 	} else {
 		interaction.member.roles.add(role);
-		interaction.reply({ embeds: [ new MessageEmbed(main.exports.embed).setDescription(`You got the \`${role.name}\` role!`) ], ephemeral: true });
+		interaction.reply({ embeds: [ new MessageEmbed(main.exports.embed).setDescription(`\`${role.name}\` role added!`) ], ephemeral: true });
 	}
 
 }
