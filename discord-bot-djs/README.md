@@ -2,8 +2,8 @@
 This is a ~~poorly written~~ Discord bot for a streaming community server! Ported from Python to JavaScript by: [@rozbrajaczpoziomow](https://github.com/rozbrajaczpoziomow)
 
 ## TODO:
--	[ ] Auto Post $going-live
 -	[ ] Message Members on Joining Server
+-	[X] Auto Post $going-live
 -	[X] Move to Discord.js v13
 -	[X] Slash Commands
 -	[X] Add Poll Command (Vote With Reactions)
