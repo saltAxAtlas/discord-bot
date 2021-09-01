@@ -12,7 +12,8 @@ module.exports = {
 			'Do not spam messages in the chats.',
 			'Listen to the moderators.',
 			'Don\'t argue with each other.',
-			'Have fun!'
+			'https://cdn.discordapp.com/attachments/336935738581188609/782997977173196840/unknown.png',
+			'Have fun'
 		]
 
 		await interaction.reply({
