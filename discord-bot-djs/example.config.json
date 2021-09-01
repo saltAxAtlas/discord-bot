@@ -7,6 +7,6 @@
         "guildIds": {
             "GUILD_ID_HERE": "CHANNEL_TO_POST_GOING_LIVE_MESSAGE_ID"
         },
-        "content":   "<@&NOTIFIED_ROLE_ID> STEAMER_NAME is now streaming at https://twitch.tv/$_"
+        "content":   "<@&NOTIFIED_ROLE_ID> $! is now streaming at https://twitch.tv/$_"
     }
 }
