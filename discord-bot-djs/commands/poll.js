@@ -22,14 +22,8 @@ module.exports = {
         console.log(emojis, emoji, _i);
 
         while(emoji.length > 0) {
-            var match = emojiRegex().exec(emoji);
-            emojis.push(match[0]);
-            emoji = emoji.slice(match[0].length);
-        }
-
-        while(emoji.length > 0) {
             var match = emojiRegex().exec(emojis);
-            if(!match) { console.log('No match! break; ing'); break; }
+            if(!match) { console.log('no match -> breaking'); break; }
             console.log(match);
             console.log(emojis);
             console.log(emoji);
