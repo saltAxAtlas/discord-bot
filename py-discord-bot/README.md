@@ -1,5 +1,5 @@
 # discord-bot
-This is a poorly written Discord bot for a streaming community server! It is written in Python using discord.py. This version of the bot is depreciated and will no longer be updated as features are added to the supported version of it. The support version of the bot can be found [here](https://github.com/saltAxAtlas/discord-bot/tree/main/discord-bot-djs).
+This is a poorly written Discord bot for a streaming community server! It is written in Python using discord.py. This version of the bot is depreciated and will no longer be updated as features are added to the supported version of it. The support version of the bot can be found [here](https://github.com/saltAxAtlas/discord-bot/tree/main/js-discord-bot).
 
 ## TODO:
 -   [ ] Slash Commands (Will Not Be Implemented)
@@ -20,7 +20,5 @@ This is a poorly written Discord bot for a streaming community server! It is wri
 	- Place your bot token in example.env
 	- Place your client id and client secret in example.env
 	- Rename it to .env
-3. Adjust Stream Schedule
-	- Adjust the values in /commands/schedule.py to match your stream times
-4. Adjust Discord Roles
-	- Adjust role names to match the roles of your server
+3. Run Bot
+	- Run `python3 main.py`

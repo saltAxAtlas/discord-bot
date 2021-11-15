@@ -21,7 +21,5 @@ This is a ~~poorly written~~ Discord bot for a streaming community server! Porte
 	- Place client id in `example.config.json` as  `{"id": "client_id_here"}`
 	- Place client secret in `example.config.json` as  `{"secret": "client_secret_here"}`
 	- Place guild id and the channel to post going-live message in `example.config.json` as  `{"guild_id_here": "channel_id_here"}`
-3. Adjust Stream Schedule
-	- Adjust the values in /commands/schedule.js to match your stream times
-4. Adjust Discord Roles
-	- Adjust role names to match the roles of your server
+3. Run Bot
+	- Run `npm run`
